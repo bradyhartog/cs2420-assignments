@@ -12,10 +12,10 @@ public class LambdaTimer
             HashTable<String, Integer> hash = new HashTable<>();
             
             // Vary lambda value
-//            hash.setLambda(25.0);
+            hash.setLambda(25.0);
 //            hash.setLambda(50.0);
 //            hash.setLambda(100.0);
-            hash.setLambda(1000.0);
+//            hash.setLambda(1000.0);
             
             ArrayList<String> keyList = new ArrayList<>();
     		
