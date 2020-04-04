@@ -43,7 +43,6 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 		
 		this.array[size()] = item;
 		this.size++;
-		
 		percolateUp();
 	}
 
@@ -56,7 +55,9 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 	public E extractMax() throws NoSuchElementException {
 		E max = peek();
 
-		
+		this.array[0] = this.array[size() - 1];
+		size--;
+		percolateDown();
 
 		return max;
 	}
@@ -89,14 +90,9 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 	
 	private void percolateUp() 
 	{
-		//formula for parents:
-			//(i-1)/2
-
-		int index = this.size;
+		int index = this.size - 1;
 
 		percolateUp(index);
-		
-		
 	}
 
 	private void percolateUp(int index)
@@ -119,8 +115,6 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 
 			percolateUp(parent(index));
 		}
-
-
 	}
 
 	private int parent(int index)
@@ -128,17 +122,48 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 		return (index-1)/2;
 	}
 	
+	private int leftChild(int index) {
+		return 2*index + 1;
+	}
+	
+	private int rightChild(int index) {
+		return 2*index + 2;
+	}
+	
 	private void percolateDown() {
-		//formula for left child:
-			//(2*i)+1
-		//forumla for right child:
-			//(2*i)+2
+		percolateDown(0);
+	}
+	
+	private void percolateDown(int index) {
+		E item = this.array[index];
+		E leftChild = this.array[leftChild(index)];
+		E rightChild = this.array[rightChild(index)];
+		
+		if (index == size() - 1) {
+			return;
+		}
+		
+		if (innerCompare(item, leftChild) < innerCompare(item, rightChild)) {
+			E temp = leftChild;
+
+			this.array[leftChild(index)] = item;
+			this.array[index] = temp;
+
+			percolateDown(leftChild(index));
+		}
+		else {
+			E temp = rightChild;
+
+			this.array[rightChild(index)] = item;
+			this.array[index] = temp;
+
+			percolateDown(rightChild(index));
+		}
 	}
 
 	@SuppressWarnings("unchecked")
 	private int innerCompare(E parent, E item) 
 	{	
-		
 		if (useComp)
 		{
 			return this.comp.compare(parent, item);
