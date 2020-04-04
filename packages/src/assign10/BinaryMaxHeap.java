@@ -14,25 +14,31 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 	E[] array = (E[]) new Object[capacity];
 	
 	
-	public BinaryMaxHeap() {
+	public BinaryMaxHeap() 
+	{
 		useComp = false;
 	}
 	
-	public BinaryMaxHeap(Comparator<? super E> comp) {
+	public BinaryMaxHeap(Comparator<? super E> comp) 
+	{
 		useComp = true;
-
 		this.comp = comp;
 	}
 	
-	public BinaryMaxHeap(List<? extends E> list) {
+	public BinaryMaxHeap(List<? extends E> list) 
+	{
 		useComp = false;
+		buildHeap(list);
 	}
 	
-	public BinaryMaxHeap(List<? extends E> list, Comparator<? super E> comp) {
+	public BinaryMaxHeap(List<? extends E> list, Comparator<? super E> comp) 
+	{
 		useComp = true;
 		this.comp = comp;
+		buildHeap(list);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void add(E item) {
 		if(size == 0) {
@@ -40,19 +46,46 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 			this.size++;
 			return;
 		}
-		
+
+		if (this.size+1 >= this.capacity)
+		{
+			this.capacity *= 2;
+
+			E[] tempArray = (E[]) new Object[capacity];
+
+			int i = 0;
+			for (E element: this.array)
+			{
+				tempArray[i]= element;
+				i++;
+			}
+
+			this.array = tempArray;
+		}
+
 		this.array[size()] = item;
 		this.size++;
 		percolateUp();
 	}
 
 	@Override
-	public E peek() throws NoSuchElementException {
+	public E peek() throws NoSuchElementException 
+	{
+		if (size() == 0)
+		{
+			throw new NoSuchElementException();
+		}
 		return this.array[0];
 	}
 
 	@Override
-	public E extractMax() throws NoSuchElementException {
+	public E extractMax() throws NoSuchElementException 
+	{
+		if (size() == 0)
+		{
+			throw new NoSuchElementException();
+		}
+		
 		E max = peek();
 
 		this.array[0] = this.array[size() - 1];
@@ -84,8 +117,18 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 		return this.array;
 	}
 	
-	private void buildHeap() {
-		//
+	private void buildHeap(List<? extends E> list) 
+	{		
+		for (E item : list)
+		{
+			this.array[this.size] = item;
+			this.size++;
+		}
+
+		for (int i = this.size-1; i >=0; i--)
+		{
+			percolateDown(i);
+		}
 	}
 	
 	private void percolateUp() 
