@@ -8,25 +8,29 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 
 	int size = 0;
 	int capacity = 16;
-	
+	boolean useComp;
+	Comparator<? super E> comp;
 	@SuppressWarnings("unchecked")
 	E[] array = (E[]) new Object[capacity];
 	
 	
 	public BinaryMaxHeap() {
-		// TODO Auto-generated constructor stub
+		useComp = false;
 	}
 	
 	public BinaryMaxHeap(Comparator<? super E> comp) {
-		// TODO Auto-generated constructor stub
+		useComp = true;
+
+		this.comp = comp;
 	}
 	
 	public BinaryMaxHeap(List<? extends E> list) {
-		// TODO Auto-generated constructor stub
+		useComp = false;
 	}
 	
 	public BinaryMaxHeap(List<? extends E> list, Comparator<? super E> comp) {
-		// TODO Auto-generated constructor stub
+		useComp = true;
+		this.comp = comp;
 	}
 
 	@Override
@@ -45,14 +49,16 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 
 	@Override
 	public E peek() throws NoSuchElementException {
-		// TODO Auto-generated method stub
-		return null;
+		return this.array[0];
 	}
 
 	@Override
 	public E extractMax() throws NoSuchElementException {
-		// TODO Auto-generated method stub
-		return null;
+		E max = peek();
+
+		
+
+		return max;
 	}
 
 	@Override
@@ -81,16 +87,64 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 		//
 	}
 	
-	private void percolateUp() {
-		//
+	private void percolateUp() 
+	{
+		//formula for parents:
+			//(i-1)/2
+
+		int index = this.size;
+
+		percolateUp(index);
+		
+		
+	}
+
+	private void percolateUp(int index)
+	{
+		if (index == 0)
+		{
+			return;
+		}
+
+		E parent = this.array[parent(index)];
+		E item = this.array[index];
+
+		if (innerCompare(parent, item) < 0)
+		{
+			E temp = item;
+
+			this.array[index] = parent;
+
+			this.array[parent(index)] = temp;
+
+			percolateUp(parent(index));
+		}
+
+
+	}
+
+	private int parent(int index)
+	{
+		return (index-1)/2;
 	}
 	
 	private void percolateDown() {
-		//
+		//formula for left child:
+			//(2*i)+1
+		//forumla for right child:
+			//(2*i)+2
 	}
-	
-	private void innerCompare() {
-		//
+
+	@SuppressWarnings("unchecked")
+	private int innerCompare(E parent, E item) 
+	{	
+		
+		if (useComp)
+		{
+			return this.comp.compare(parent, item);
+		}
+
+		return ((Comparable<? super E>)parent).compareTo(item);
 	}
 
 }
