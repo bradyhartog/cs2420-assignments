@@ -15,7 +15,7 @@ class PriorityQueueTester {
 	@BeforeEach
 	void setUp() 
 	{
-		
+		BinaryMaxHeap<String> heap = new BinaryMaxHeap<String>();
 		
 	}
 	

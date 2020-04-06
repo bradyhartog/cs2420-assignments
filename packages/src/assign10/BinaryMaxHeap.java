@@ -4,33 +4,60 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+/**
+ * A Generic Binary Max Heap
+ */
 public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 
+	/**Size of the Heap */
 	int size = 0;
+
+	/**Size of the backing array */
 	int capacity = 16;
+
+	/**Determines when to use a comparator */
 	boolean useComp;
+
+	/**Stores the comparator (When used) */
 	Comparator<? super E> comp;
+
+	/**Backing array for the Heap */
 	@SuppressWarnings("unchecked")
 	E[] array = (E[]) new Object[capacity];
 	
-	
+	/**
+	 * Constructs an empty Binary Max Heap
+	 */
 	public BinaryMaxHeap() 
 	{
 		useComp = false;
 	}
 	
+	/**
+	 * Constructs an empty Binary Max Heap that uses a Comparator
+	 * @param comp
+	 */
 	public BinaryMaxHeap(Comparator<? super E> comp) 
 	{
 		useComp = true;
 		this.comp = comp;
 	}
 	
+	/**
+	 * Constructs a Binary Max Heap from a list of elements
+	 * @param list
+	 */
 	public BinaryMaxHeap(List<? extends E> list) 
 	{
 		useComp = false;
 		buildHeap(list);
 	}
 	
+	/**
+	 * Constructs a Binary Max Heap from a list of elements that uses a Comparator
+	 * @param list
+	 * @param comp
+	 */
 	public BinaryMaxHeap(List<? extends E> list, Comparator<? super E> comp) 
 	{
 		useComp = true;
@@ -117,6 +144,10 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 		return this.array;
 	}
 	
+	/**
+	 * Constructs a Heap from a given list
+	 * @param list
+	 */
 	private void buildHeap(List<? extends E> list) 
 	{		
 		for (E item : list)
@@ -131,6 +162,9 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 		}
 	}
 	
+	/**
+	 * Driver method for percolating up a Binary Heap
+	 */
 	private void percolateUp() 
 	{
 		int index = this.size - 1;
@@ -138,6 +172,9 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 		percolateUp(index);
 	}
 
+	/**
+	 * Percolates up the Binary Heap from a given index
+	 */
 	private void percolateUp(int index)
 	{
 		if (index == 0)
@@ -160,23 +197,47 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 		}
 	}
 
+	/**
+	 * Calculates the index of a parent from a given index.
+	 * Note that elements start at index 0
+	 * @param index
+	 * @return
+	 */
 	private int parent(int index)
 	{
 		return (index-1)/2;
 	}
 	
+	/**
+	 * Calculates the index of a left child from a given index.
+	 * Note that elements start at index 0
+	 * @param index
+	 * @return
+	 */
 	private int leftChild(int index) {
 		return 2*index + 1;
 	}
 	
+	/**
+	 * Calculates the index of a right child from a given index.
+	 * Note that elements start at index 0
+	 * @param index
+	 * @return
+	 */
 	private int rightChild(int index) {
 		return 2*index + 2;
 	}
 	
+	/**
+	 * Driver method for percolating down a Binary Heap
+	 */
 	private void percolateDown() {
 		percolateDown(0);
 	}
 	
+	/**
+	 * Percolates down the Binary Heap from a given index
+	 */
 	private void percolateDown(int index) {
 		E item = this.array[index];
 		E leftChild = this.array[leftChild(index)];
@@ -204,6 +265,9 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 		}
 	}
 
+	/**
+	 * Performs a comparison of two items. Changes depending on whether or not a Comparator is used.
+	 */
 	@SuppressWarnings("unchecked")
 	private int innerCompare(E parent, E item) 
 	{	
