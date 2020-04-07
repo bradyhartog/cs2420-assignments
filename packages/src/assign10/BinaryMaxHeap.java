@@ -163,10 +163,18 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 		this.size = 0;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object[] toArray() 
 	{
-		return this.array;
+		Object[] arrayOut = (E[]) new Object[this.size];
+		
+		for (int i = 0; i < this.size; i++)
+		{
+			arrayOut[i] = this.array[i];
+		}
+		
+		return arrayOut;
 	}
 	
 	/**
