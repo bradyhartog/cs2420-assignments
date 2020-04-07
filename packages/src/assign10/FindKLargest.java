@@ -57,6 +57,7 @@ public class FindKLargest
 
 		BinaryMaxHeap<E> binaryMaxHeap = new BinaryMaxHeap<>(items, cmp);
 		List<E> kLargest = new ArrayList<E>();
+
 		for (int i = 0; i < k; i++)
 		{
 			kLargest.add(binaryMaxHeap.extractMax());
@@ -76,14 +77,12 @@ public class FindKLargest
 	 */
 	public static <E extends Comparable<? super E>> List<E> findKLargestSort(List<E> items, int k) throws IllegalArgumentException 
 	{
-
 		if (k < 0 || k > items.size())
 		{
 			throw new IllegalArgumentException();
 		}
 
 		Collections.sort(items);
-
 		List<E> kLargest = new ArrayList<E>();
 
 		int index= items.size()-1;
@@ -114,7 +113,6 @@ public class FindKLargest
 		}
 		
 		Collections.sort(items, cmp);
-
 		List<E> kLargest = new ArrayList<E>();
 
 		int index= items.size()-1;

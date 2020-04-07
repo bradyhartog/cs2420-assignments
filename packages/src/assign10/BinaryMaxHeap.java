@@ -22,14 +22,15 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 	Comparator<? super E> comp;
 
 	/**Backing array for the Heap */
-	@SuppressWarnings("unchecked")
-	E[] array = (E[]) new Object[capacity];
+	E[] array;
 	
 	/**
 	 * Constructs an empty Binary Max Heap
 	 */
+	@SuppressWarnings("unchecked")
 	public BinaryMaxHeap() 
 	{
+		this.array = (E[]) new Object[capacity];
 		useComp = false;
 	}
 	
@@ -37,8 +38,10 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 	 * Constructs an empty Binary Max Heap that uses a Comparator
 	 * @param comp
 	 */
+	@SuppressWarnings("unchecked")
 	public BinaryMaxHeap(Comparator<? super E> comp) 
 	{
+		this.array = (E[]) new Object[capacity];
 		useComp = true;
 		this.comp = comp;
 	}
@@ -47,27 +50,35 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 	 * Constructs a Binary Max Heap from a list of elements
 	 * @param list
 	 */
+	@SuppressWarnings("unchecked")
 	public BinaryMaxHeap(List<? extends E> list) 
 	{
+		this.capacity = list.size();
+		this.array = (E[]) new Object[capacity];
 		useComp = false;
 		buildHeap(list);
 	}
+	
 	
 	/**
 	 * Constructs a Binary Max Heap from a list of elements that uses a Comparator
 	 * @param list
 	 * @param comp
 	 */
+	@SuppressWarnings("unchecked")
 	public BinaryMaxHeap(List<? extends E> list, Comparator<? super E> comp) 
 	{
+		this.capacity = list.size();
+		this.array = (E[]) new Object[capacity];
 		useComp = true;
 		this.comp = comp;
 		buildHeap(list);
 	}
 
-	@SuppressWarnings("unchecked")
+	
 	@Override
-	public void add(E item) {
+	public void add(E item) 
+	{
 		if(size == 0) {
 			this.array[0] = item;
 			this.size++;
@@ -75,24 +86,32 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 		}
 
 		if (this.size+1 >= this.capacity)
-		{
-			this.capacity *= 2;
-
-			E[] tempArray = (E[]) new Object[capacity];
-
-			int i = 0;
-			for (E element: this.array)
-			{
-				tempArray[i]= element;
-				i++;
-			}
-
-			this.array = tempArray;
+		{	
+			resize();	
 		}
 
 		this.array[size()] = item;
 		this.size++;
 		percolateUp();
+	}
+
+	/**
+	 * Doubles the capacity of the backing array
+	 */
+	@SuppressWarnings("unchecked")
+	private void resize() 
+	{
+		this.capacity *= 2;
+		E[] tempArray = (E[]) new Object[capacity];
+
+		int i = 0;
+		for (E element: this.array)
+		{
+			tempArray[i]= element;
+			i++;
+		}
+
+		this.array = tempArray;
 	}
 
 	@Override
@@ -102,6 +121,7 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 		{
 			throw new NoSuchElementException();
 		}
+
 		return this.array[0];
 	}
 
@@ -116,6 +136,7 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 		E max = peek();
 
 		this.array[0] = this.array[size() - 1];
+		this.array[size()-1] = null;
 		size--;
 		percolateDown();
 
@@ -123,24 +144,28 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 	}
 
 	@Override
-	public int size() {
+	public int size() 
+	{
 		return this.size;
 	}
 
 	@Override
-	public boolean isEmpty() {
+	public boolean isEmpty() 
+	{
 		return (this.size == 0);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void clear() {
+	public void clear() 
+	{
 		this.array = (E[]) new Object[capacity];
 		this.size = 0;
 	}
 
 	@Override
-	public Object[] toArray() {
+	public Object[] toArray() 
+	{
 		return this.array;
 	}
 	
@@ -149,14 +174,15 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 	 * @param list
 	 */
 	private void buildHeap(List<? extends E> list) 
-	{		
+	{	
 		for (E item : list)
 		{
 			this.array[this.size] = item;
 			this.size++;
 		}
 
-		for (int i = this.size-1; i >=0; i--)
+		//Doesn't percolate the leaves
+		for (int i = this.size/2 - 1; i >= 0; i--)
 		{
 			percolateDown(i);
 		}
@@ -177,7 +203,7 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 	 */
 	private void percolateUp(int index)
 	{
-		if (index == 0)
+		if (index <= 0)
 		{
 			return;
 		}
@@ -214,7 +240,8 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 	 * @param index
 	 * @return
 	 */
-	private int leftChild(int index) {
+	private int leftChild(int index) 
+	{
 		return 2*index + 1;
 	}
 	
@@ -224,35 +251,43 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 	 * @param index
 	 * @return
 	 */
-	private int rightChild(int index) {
+	private int rightChild(int index) 
+	{
 		return 2*index + 2;
 	}
 	
 	/**
 	 * Driver method for percolating down a Binary Heap
 	 */
-	private void percolateDown() {
+	private void percolateDown() 
+	{
 		percolateDown(0);
 	}
 	
 	/**
 	 * Percolates down the Binary Heap from a given index
 	 */
-	private void percolateDown(int index) {
-		E item = this.array[index];
+	private void percolateDown(int index) 
+	{	
+		if (index <= size() - 1) 
+		{
+			return;
+		}
+
 		E leftChild = this.array[leftChild(index)];
-		E rightChild = this.array[rightChild(index)];
-		
+
 		if (leftChild == null)
 		{
 			return;
 		}
 
-		if (index == size() - 1) {
-			return;
-		}
+		E item = this.array[index];
+
+		E rightChild = this.array[rightChild(index)];
 		
-		if (innerCompare(item, leftChild) < innerCompare(item, rightChild)) {
+		//Check this part
+		if (innerCompare(item, leftChild) < innerCompare(item, rightChild)) 
+		{
 			E temp = leftChild;
 
 			this.array[leftChild(index)] = item;
@@ -260,7 +295,8 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 
 			percolateDown(leftChild(index));
 		}
-		else {
+		else 
+		{
 			E temp = rightChild;
 
 			this.array[rightChild(index)] = item;
