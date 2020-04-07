@@ -19,6 +19,8 @@ class BinaryMaxHeapTester {
 	BinaryMaxHeap<Integer> heapFromList;
 	BinaryMaxHeap<Integer> heapWithCompFromList;
 	Integer[] expected;
+
+	Integer[] expectedBuild;
 	
 	@BeforeEach
 	void setUp() 
@@ -97,15 +99,16 @@ class BinaryMaxHeapTester {
 	@Test
 	void addList()
 	{
-		expected[0] = 6;
-		expected[1] = 3;
-		expected[2] = 5;
-		expected[3] = 0;
-		expected[4] = 2;
-		expected[5] = 1;
-		expected[6] = 4;
+		expectedBuild = new Integer[heapFromList.size()];
+		expectedBuild[0] = 6;
+		expectedBuild[1] = 4;
+		expectedBuild[2] = 5;
+		expectedBuild[3] = 3;
+		expectedBuild[4] = 1;
+		expectedBuild[5] = 0;
+		expectedBuild[6] = 2;
 		
-		assertTrue(Arrays.deepEquals(expected, heapFromList.toArray()));
+		assertTrue(Arrays.deepEquals(expectedBuild, heapFromList.toArray()));
 	}
 
 	@Test

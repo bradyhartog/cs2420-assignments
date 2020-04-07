@@ -269,24 +269,56 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 	 */
 	private void percolateDown(int index) 
 	{	
-		if (index <= size() - 1) 
+		/*
+		If item < left && left > right
+			switch left
+
+		If item < right && right > left
+			switch right
+		*/
+
+		int leftIndex = leftChild(index);
+		if (leftIndex > size()-1)
 		{
 			return;
 		}
 
-		E leftChild = this.array[leftChild(index)];
-
-		if (leftChild == null)
-		{
-			return;
-		}
+		E leftChild = this.array[leftIndex];
 
 		E item = this.array[index];
-
-		E rightChild = this.array[rightChild(index)];
 		
-		//Check this part
-		if (innerCompare(item, leftChild) < innerCompare(item, rightChild)) 
+		int rightIndex = rightChild(index);
+		boolean useLeft = innerCompare(item,leftChild) < 0;
+		if (rightIndex <= size()-1)
+		{
+			E rightChild = this.array[rightChild(index)];
+
+
+			boolean useRight = innerCompare(item,rightChild) < 0;
+			
+			boolean isLeftBigger = innerCompare(leftChild,rightChild) > 0;
+
+			if (useLeft && isLeftBigger)
+			{
+				E temp = leftChild;
+
+				this.array[leftChild(index)] = item;
+				this.array[index] = temp;
+
+				percolateDown(leftChild(index));
+			}
+			else if (useRight && !isLeftBigger)
+			{
+				E temp = rightChild;
+
+				this.array[rightChild(index)] = item;
+				this.array[index] = temp;
+
+				percolateDown(rightChild(index));
+			}
+		}
+		
+		else if (useLeft)
 		{
 			E temp = leftChild;
 
@@ -295,15 +327,7 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 
 			percolateDown(leftChild(index));
 		}
-		else 
-		{
-			E temp = rightChild;
-
-			this.array[rightChild(index)] = item;
-			this.array[index] = temp;
-
-			percolateDown(rightChild(index));
-		}
+		
 	}
 
 	/**
