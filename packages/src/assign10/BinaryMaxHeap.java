@@ -243,6 +243,11 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E> {
 		E leftChild = this.array[leftChild(index)];
 		E rightChild = this.array[rightChild(index)];
 		
+		if (leftChild == null)
+		{
+			return;
+		}
+
 		if (index == size() - 1) {
 			return;
 		}
