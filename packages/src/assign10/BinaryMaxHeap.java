@@ -7,8 +7,8 @@ import java.util.NoSuchElementException;
 /**
  * A Generic Binary Max Heap
  */
-public class BinaryMaxHeap <E> implements PriorityQueue<E> {
-
+public class BinaryMaxHeap <E> implements PriorityQueue<E> 
+{
 	/**Size of the Heap */
 	int size = 0;
 
