@@ -23,7 +23,7 @@ public class FindKLargestTimer
 		{
 			List<Integer> list = new ArrayList<Integer>();
 			
-			int k = 10; // Change to 1,10, probSize/2, or probSize
+			int k = 10; // Change to 1, 10, probSize/2, or probSize
 			
 			for (int i = 0; i < probSize; i++)
 			{
