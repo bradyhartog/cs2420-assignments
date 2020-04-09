@@ -23,7 +23,7 @@ public class FindKLargestTimer
 		{
 			List<Integer> list = new ArrayList<Integer>();
 			
-			int k = probSize; // Change to 1, probSize/2, or probSize
+			int k = 10; // Change to 1,10, probSize/2, or probSize
 			
 			for (int i = 0; i < probSize; i++)
 			{
@@ -44,10 +44,10 @@ public class FindKLargestTimer
 			for (int i = 0; i < timesToLoop; i++)
 			{
 				// Uncomment when timing HeapSort
-				// FindKLargest.findKLargestHeap(list, k);
+				//FindKLargest.findKLargestHeap(list, k);
 
 				// Uncomment when timing Java's sort
-				// FindKLargest.findKLargestSort(list, k);
+				FindKLargest.findKLargestSort(list, k);
 			}
 
 			midpointTime = System.nanoTime();
