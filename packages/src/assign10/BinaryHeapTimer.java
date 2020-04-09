@@ -16,8 +16,8 @@ public class BinaryHeapTimer
 
 		int timesToLoop = 1000000;
 
-		int incr = 400000;
-		for (int probSize = 200000; probSize <= 10000000; probSize += incr)
+		int incr = 10000;
+		for (int probSize = 1000; probSize <= 2000000; probSize += incr)
 		{
 			BinaryMaxHeap<Integer> heap = new BinaryMaxHeap<>();
 
@@ -37,32 +37,53 @@ public class BinaryHeapTimer
 
 			// Collect running times.
 			startTime = System.nanoTime();
-			for (int i = 0; i < timesToLoop; i++)
+
+			//Uncomment if timing add (worstcase)
+			for (int i = 0; i < probSize; i++)
 			{
-				// Uncomment when timing add()
-				// heap.add(probSize/2);
-				
-				// Uncomment when timing peek()
-				// heap.peek();
-				
-				// Uncomment when timing extractMax()
-				// heap.extractMax();
+				heap.add(i);
 			}
+			
+			//Uncomment if timing add (average), peek, or extractMax
+			// for (int i = 0; i < timesToLoop; i++)
+			// {
+			// 	// Uncomment when timing add() average case
+			// 	// heap.add(probSize/2);
+				
+			// 	// Uncomment when timing peek()
+			// 	// heap.peek();
+				
+			// 	// Uncomment when timing extractMax()
+			// 	// heap.extractMax();
+			// }
 
 			midpointTime = System.nanoTime();
 
 			// Capture the cost of running the loop and any other operations done
 			// above that are not the essential method call being timed.
-			for (int i = 0; i < timesToLoop; i++)
-			{ // empty block
-			}
+
+			//Uncomment if timing add (average), peek, or extractMax
+			// for (int i = 0; i < timesToLoop; i++)
+			// { // empty block
+			// }
+
+			//Uncomment if timing add (worstcase)
+			// for (int i = 0; i < probSize; i++)
+			// {
+		
+			// }
 
 			stopTime = System.nanoTime();
 
 			// Compute the time, subtract the cost of running the loop
 			// from the cost of running the loop and searching.
 			// Average it over the number of runs.
-			double averageTime = ((midpointTime - startTime) - (stopTime - midpointTime)) / (double) timesToLoop;
+
+			//Uncomment if timing add (average), peek, or extractMax
+			//double averageTime = ((midpointTime - startTime) - (stopTime - midpointTime)) / (double)timesToLoop;
+
+			//Uncomment if timing add (worstcase)
+			//double averageTime = ((midpointTime - startTime) - (stopTime - midpointTime)) / (double)probSize;
 			System.out.println(probSize + "  " + averageTime);
 		}
 	}
