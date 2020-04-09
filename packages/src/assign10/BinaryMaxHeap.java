@@ -6,67 +6,72 @@ import java.util.NoSuchElementException;
 
 /**
  * A Generic Binary Max Heap
+ * 
+ * @author Brady Hartog & Vivek Vankayalapati
+ * @version April 9, 2020
  */
-public class BinaryMaxHeap <E> implements PriorityQueue<E> 
+public class BinaryMaxHeap<E> implements PriorityQueue<E>
 {
-	/**Size of the Heap */
+	/** Size of the Heap */
 	int size = 0;
 
-	/**Size of the backing array */
+	/** Size of the backing array */
 	int capacity = 16;
 
-	/**Determines when to use a comparator */
+	/** Determines when to use a comparator */
 	boolean useComp;
 
-	/**Stores the comparator (When used) */
+	/** Stores the comparator (When used) */
 	Comparator<? super E> comp;
 
-	/**Backing array for the Heap */
+	/** Backing array for the Heap */
 	E[] array;
-	
+
 	/**
 	 * Constructs an empty Binary Max Heap
 	 */
 	@SuppressWarnings("unchecked")
-	public BinaryMaxHeap() 
+	public BinaryMaxHeap()
 	{
 		this.array = (E[]) new Object[capacity];
 		useComp = false;
 	}
-	
+
 	/**
 	 * Constructs an empty Binary Max Heap that uses a Comparator
+	 * 
 	 * @param comp
 	 */
 	@SuppressWarnings("unchecked")
-	public BinaryMaxHeap(Comparator<? super E> comp) 
+	public BinaryMaxHeap(Comparator<? super E> comp)
 	{
 		this.array = (E[]) new Object[capacity];
 		useComp = true;
 		this.comp = comp;
 	}
-	
+
 	/**
 	 * Constructs a Binary Max Heap from a list of elements
+	 * 
 	 * @param list
 	 */
 	@SuppressWarnings("unchecked")
-	public BinaryMaxHeap(List<? extends E> list) 
+	public BinaryMaxHeap(List<? extends E> list)
 	{
 		this.capacity = list.size();
 		this.array = (E[]) new Object[capacity];
 		useComp = false;
 		buildHeap(list);
 	}
-	
-	
+
 	/**
 	 * Constructs a Binary Max Heap from a list of elements that uses a Comparator
+	 * 
 	 * @param list
 	 * @param comp
 	 */
 	@SuppressWarnings("unchecked")
-	public BinaryMaxHeap(List<? extends E> list, Comparator<? super E> comp) 
+	public BinaryMaxHeap(List<? extends E> list, Comparator<? super E> comp)
 	{
 		this.capacity = list.size();
 		this.array = (E[]) new Object[capacity];
@@ -75,19 +80,19 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E>
 		buildHeap(list);
 	}
 
-	
 	@Override
-	public void add(E item) 
+	public void add(E item)
 	{
-		if(size == 0) {
+		if (size == 0)
+		{
 			this.array[0] = item;
 			this.size++;
 			return;
 		}
 
-		if (this.size+1 >= this.capacity)
-		{	
-			resize();	
+		if (this.size + 1 >= this.capacity)
+		{
+			resize();
 		}
 
 		this.array[size()] = item;
@@ -99,15 +104,15 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E>
 	 * Doubles the capacity of the backing array
 	 */
 	@SuppressWarnings("unchecked")
-	private void resize() 
+	private void resize()
 	{
 		this.capacity *= 2;
 		E[] tempArray = (E[]) new Object[capacity];
 
 		int i = 0;
-		for (E element: this.array)
+		for (E element : this.array)
 		{
-			tempArray[i]= element;
+			tempArray[i] = element;
 			i++;
 		}
 
@@ -115,7 +120,7 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E>
 	}
 
 	@Override
-	public E peek() throws NoSuchElementException 
+	public E peek() throws NoSuchElementException
 	{
 		if (size() == 0)
 		{
@@ -126,17 +131,16 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E>
 	}
 
 	@Override
-	public E extractMax() throws NoSuchElementException 
+	public E extractMax() throws NoSuchElementException
 	{
 		if (size() == 0)
 		{
 			throw new NoSuchElementException();
 		}
-		
+
 		E max = peek();
 
 		this.array[0] = this.array[size() - 1];
-		this.array[size()-1] = null;
 		size--;
 		percolateDown();
 
@@ -144,20 +148,20 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E>
 	}
 
 	@Override
-	public int size() 
+	public int size()
 	{
 		return this.size;
 	}
 
 	@Override
-	public boolean isEmpty() 
+	public boolean isEmpty()
 	{
 		return (this.size == 0);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void clear() 
+	public void clear()
 	{
 		this.array = (E[]) new Object[capacity];
 		this.size = 0;
@@ -165,41 +169,42 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E>
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Object[] toArray() 
+	public Object[] toArray()
 	{
 		Object[] arrayOut = (E[]) new Object[this.size];
-		
+
 		for (int i = 0; i < this.size; i++)
 		{
 			arrayOut[i] = this.array[i];
 		}
-		
+
 		return arrayOut;
 	}
-	
+
 	/**
 	 * Constructs a Heap from a given list
+	 * 
 	 * @param list
 	 */
-	private void buildHeap(List<? extends E> list) 
-	{	
+	private void buildHeap(List<? extends E> list)
+	{
 		for (E item : list)
 		{
 			this.array[this.size] = item;
 			this.size++;
 		}
 
-		//Doesn't percolate the leaves
-		for (int i = this.size/2 - 1; i >= 0; i--)
+		// Doesn't percolate the leaves
+		for (int i = this.size / 2 - 1; i >= 0; i--)
 		{
 			percolateDown(i);
 		}
 	}
-	
+
 	/**
 	 * Driver method for percolating up a Binary Heap
 	 */
-	private void percolateUp() 
+	private void percolateUp()
 	{
 		int index = this.size - 1;
 
@@ -232,101 +237,86 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E>
 	}
 
 	/**
-	 * Calculates the index of a parent from a given index.
-	 * Note that elements start at index 0
+	 * Calculates the index of a parent from a given index. Note that elements start
+	 * at index 0
+	 * 
 	 * @param index
 	 * @return
 	 */
 	private int parent(int index)
 	{
-		return (index-1)/2;
+		return (index - 1) / 2;
 	}
-	
+
 	/**
-	 * Calculates the index of a left child from a given index.
-	 * Note that elements start at index 0
+	 * Calculates the index of a left child from a given index. Note that elements
+	 * start at index 0
+	 * 
 	 * @param index
 	 * @return
 	 */
-	private int leftChild(int index) 
+	private int leftChild(int index)
 	{
-		return 2*index + 1;
+		return 2 * index + 1;
 	}
-	
+
 	/**
-	 * Calculates the index of a right child from a given index.
-	 * Note that elements start at index 0
+	 * Calculates the index of a right child from a given index. Note that elements
+	 * start at index 0
+	 * 
 	 * @param index
 	 * @return
 	 */
-	private int rightChild(int index) 
+	private int rightChild(int index)
 	{
-		return 2*index + 2;
+		return 2 * index + 2;
 	}
-	
+
 	/**
 	 * Driver method for percolating down a Binary Heap
 	 */
-	private void percolateDown() 
+	private void percolateDown()
 	{
 		percolateDown(0);
 	}
-	
+
 	/**
 	 * Percolates down the Binary Heap from a given index
 	 */
-	private void percolateDown(int index) 
-	{	
+	private void percolateDown(int index)
+	{
 		/*
-		If item < left && left > right
-			switch left
-
-		If item < right && right > left
-			switch right
-		*/
+		 * If item < left && left > right switch left
+		 * 
+		 * If item < right && right > left switch right
+		 */
 
 		int leftIndex = leftChild(index);
-		if (leftIndex > size()-1)
+
+		if (leftIndex > size() - 1)
 		{
 			return;
 		}
 
 		E leftChild = this.array[leftIndex];
-
+		E rightChild = null;
 		E item = this.array[index];
-		
+
+		boolean useLeft = innerCompare(item, leftChild) < 0;
+		boolean useRight = false;
+		boolean leftIsGreater = true;
+
 		int rightIndex = rightChild(index);
-		boolean useLeft = innerCompare(item,leftChild) < 0;
-		if (rightIndex <= size()-1)
+
+		if (rightIndex <= size() - 1)
 		{
-			E rightChild = this.array[rightChild(index)];
+			rightChild = this.array[rightChild(index)];
 
-
-			boolean useRight = innerCompare(item,rightChild) < 0;
-			
-			boolean isLeftBigger = innerCompare(leftChild,rightChild) > 0;
-
-			if (useLeft && isLeftBigger)
-			{
-				E temp = leftChild;
-
-				this.array[leftChild(index)] = item;
-				this.array[index] = temp;
-
-				percolateDown(leftChild(index));
-			}
-			else if (useRight && !isLeftBigger)
-			{
-				E temp = rightChild;
-
-				this.array[rightChild(index)] = item;
-				this.array[index] = temp;
-
-				percolateDown(rightChild(index));
-			}
+			useRight = innerCompare(item, rightChild) < 0;
+			leftIsGreater = innerCompare(leftChild, rightChild) > 0;
 		}
-		
-		else if (useLeft)
+
+		if (useLeft && leftIsGreater)
 		{
 			E temp = leftChild;
 
@@ -334,22 +324,30 @@ public class BinaryMaxHeap <E> implements PriorityQueue<E>
 			this.array[index] = temp;
 
 			percolateDown(leftChild(index));
+		} else if (useRight && !leftIsGreater)
+		{
+			E temp = rightChild;
+
+			this.array[rightChild(index)] = item;
+			this.array[index] = temp;
+
+			percolateDown(rightChild(index));
 		}
-		
 	}
 
 	/**
-	 * Performs a comparison of two items. Changes depending on whether or not a Comparator is used.
+	 * Performs a comparison of two items. Changes depending on whether or not a
+	 * Comparator is used.
 	 */
 	@SuppressWarnings("unchecked")
-	private int innerCompare(E parent, E item) 
-	{	
+	private int innerCompare(E parent, E item)
+	{
 		if (useComp)
 		{
 			return this.comp.compare(parent, item);
 		}
 
-		return ((Comparable<? super E>)parent).compareTo(item);
+		return ((Comparable<? super E>) parent).compareTo(item);
 	}
 
 }

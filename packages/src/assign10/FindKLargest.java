@@ -6,23 +6,26 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * This class contains generic static methods for finding the k largest items in a list.
+ * This class contains generic static methods for finding the k largest items in
+ * a list.
  * 
  * @author Erin Parker & Brady Hartog & Vivek Vankayalapati
  * @version April 9, 2020
  */
-public class FindKLargest 
+public class FindKLargest
 {
 	/**
-	 * Determines the k largest items in the given list, using a binary max heap and the 
-	 * natural ordering of the items.
+	 * Determines the k largest items in the given list, using a binary max heap and
+	 * the natural ordering of the items.
 	 * 
 	 * @param items - the given list
-	 * @param k - the number of largest items
+	 * @param k     - the number of largest items
 	 * @return a list of the k largest items, in descending order
-	 * @throws IllegalArgumentException if k is negative or larger than the size of the given list
+	 * @throws IllegalArgumentException if k is negative or larger than the size of
+	 *                                  the given list
 	 */
-	public static <E extends Comparable<? super E>> List<E> findKLargestHeap(List<E> items, int k) throws IllegalArgumentException 
+	public static <E extends Comparable<? super E>> List<E> findKLargestHeap(List<E> items, int k)
+			throws IllegalArgumentException
 	{
 		if (k < 0 || k > items.size())
 		{
@@ -31,6 +34,7 @@ public class FindKLargest
 
 		BinaryMaxHeap<E> binaryMaxHeap = new BinaryMaxHeap<>(items);
 		List<E> kLargest = new ArrayList<E>();
+
 		for (int i = 0; i < k; i++)
 		{
 			kLargest.add(binaryMaxHeap.extractMax());
@@ -43,12 +47,14 @@ public class FindKLargest
 	 * Determines the k largest items in the given list, using a binary max heap.
 	 * 
 	 * @param items - the given list
-	 * @param k - the number of largest items
-	 * @param cmp - the comparator defining how to compare items
+	 * @param k     - the number of largest items
+	 * @param cmp   - the comparator defining how to compare items
 	 * @return a list of the k largest items, in descending order
-	 * @throws IllegalArgumentException if k is negative or larger than the size of the given list
+	 * @throws IllegalArgumentException if k is negative or larger than the size of
+	 *                                  the given list
 	 */
-	public static <E> List<E> findKLargestHeap(List<E> items, int k, Comparator<? super E> cmp) throws IllegalArgumentException 
+	public static <E> List<E> findKLargestHeap(List<E> items, int k, Comparator<? super E> cmp)
+			throws IllegalArgumentException
 	{
 		if (k < 0 || k > items.size())
 		{
@@ -67,15 +73,17 @@ public class FindKLargest
 	}
 
 	/**
-	 * Determines the k largest items in the given list, using Java's sort routine and the 
-	 * natural ordering of the items.
+	 * Determines the k largest items in the given list, using Java's sort routine
+	 * and the natural ordering of the items.
 	 * 
 	 * @param items - the given list
-	 * @param k - the number of largest items
+	 * @param k     - the number of largest items
 	 * @return a list of the k largest items, in descending order
-	 * @throws IllegalArgumentException if k is negative or larger than the size of the given list
+	 * @throws IllegalArgumentException if k is negative or larger than the size of
+	 *                                  the given list
 	 */
-	public static <E extends Comparable<? super E>> List<E> findKLargestSort(List<E> items, int k) throws IllegalArgumentException 
+	public static <E extends Comparable<? super E>> List<E> findKLargestSort(List<E> items, int k)
+			throws IllegalArgumentException
 	{
 		if (k < 0 || k > items.size())
 		{
@@ -85,7 +93,8 @@ public class FindKLargest
 		Collections.sort(items);
 		List<E> kLargest = new ArrayList<E>();
 
-		int index= items.size()-1;
+		int index = items.size() - 1;
+
 		for (int i = 0; i < k; i++)
 		{
 			kLargest.add(items.get(index));
@@ -93,29 +102,31 @@ public class FindKLargest
 		}
 
 		return kLargest;
-
 	}
 
 	/**
 	 * Determines the k largest items in the given list, using Java's sort routine.
 	 * 
 	 * @param items - the given list
-	 * @param k - the number of largest items
-	 * @param cmp - the comparator defining how to compare items
+	 * @param k     - the number of largest items
+	 * @param cmp   - the comparator defining how to compare items
 	 * @return a list of the k largest items, in descending order
-	 * @throws IllegalArgumentException if k is negative or larger than the size of the given list
+	 * @throws IllegalArgumentException if k is negative or larger than the size of
+	 *                                  the given list
 	 */
-	public static <E> List<E> findKLargestSort(List<E> items, int k, Comparator<? super E> cmp) throws IllegalArgumentException 
+	public static <E> List<E> findKLargestSort(List<E> items, int k, Comparator<? super E> cmp)
+			throws IllegalArgumentException
 	{
 		if (k < 0 || k > items.size())
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		Collections.sort(items, cmp);
 		List<E> kLargest = new ArrayList<E>();
 
-		int index= items.size()-1;
+		int index = items.size() - 1;
+
 		for (int i = 0; i < k; i++)
 		{
 			kLargest.add(items.get(index));

@@ -9,10 +9,11 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 /**
  * Collects of tests for finding the k Largest items in a list
  */
-class FindKLargestTester 
+class FindKLargestTester
 {
 	List<Integer> emptyList;
 	List<Integer> oneList;
@@ -25,11 +26,13 @@ class FindKLargestTester
 	Comparator<Integer> comp;
 
 	@BeforeEach
-	void setUp() throws Exception 
+	void setUp() throws Exception
 	{
 		emptyList = new ArrayList<Integer>();
+		
 		oneList = new ArrayList<Integer>();
 		oneList.add(42);
+		
 		list = new ArrayList<Integer>();
 		list.add(6);
 		list.add(4);
@@ -38,7 +41,9 @@ class FindKLargestTester
 		list.add(5);
 		list.add(1);
 		list.add(0);
+		
 		Collections.shuffle(list);
+		
 		duplicateList = new ArrayList<Integer>();
 		duplicateList.add(6);
 		duplicateList.add(4);
@@ -54,9 +59,10 @@ class FindKLargestTester
 		duplicateList.add(5);
 		duplicateList.add(1);
 		duplicateList.add(0);
-		Collections.shuffle(duplicateList);
 		
-		comp  =  (i1, i2) -> i2 - i1;
+		Collections.shuffle(duplicateList);
+
+		comp = (i1, i2) -> i2 - i1;
 
 		correctList = new ArrayList<Integer>();
 		correctList.add(6);
@@ -81,8 +87,6 @@ class FindKLargestTester
 		correctDuplicateListComp.add(0);
 		correctDuplicateListComp.add(1);
 		correctDuplicateListComp.add(1);
-
-
 	}
 
 	@Test
@@ -90,152 +94,150 @@ class FindKLargestTester
 	{
 		assertThrows(IllegalArgumentException.class, () -> {
 			FindKLargest.findKLargestHeap(list, -42);
-		 });
+		});
 	}
 
 	@Test
-	void kSortKTooBig() 
+	void kSortKTooBig()
 	{
 		assertThrows(IllegalArgumentException.class, () -> {
 			FindKLargest.findKLargestSort(list, 42);
-		 });
+		});
 	}
 
 	@Test
-	void kSortKTooSmall() 
+	void kSortKTooSmall()
 	{
 		assertThrows(IllegalArgumentException.class, () -> {
 			FindKLargest.findKLargestSort(list, -42);
-		 });
+		});
 	}
 
 	@Test
-	void emptyListKTooBig() 
+	void emptyListKTooBig()
 	{
 		assertThrows(IllegalArgumentException.class, () -> {
 			FindKLargest.findKLargestSort(emptyList, 4);
-		 });
+		});
 	}
 
 	@Test
-	void emptyListHeap() 
+	void emptyListHeap()
 	{
-		assertEquals(emptyList,FindKLargest.findKLargestHeap(emptyList, 0));
+		assertEquals(emptyList, FindKLargest.findKLargestHeap(emptyList, 0));
 	}
 
 	@Test
-	void emptyListSort() 
+	void emptyListSort()
 	{
-		assertEquals(emptyList,FindKLargest.findKLargestSort(emptyList, 0));
-	}
-	@Test
-	void emptyListHeapComp() 
-	{
-		assertEquals(emptyList,FindKLargest.findKLargestHeap(emptyList, 0,comp));
+		assertEquals(emptyList, FindKLargest.findKLargestSort(emptyList, 0));
 	}
 
 	@Test
-	void emptyListSortComp() 
+	void emptyListHeapComp()
 	{
-		assertEquals(emptyList,FindKLargest.findKLargestSort(emptyList, 0,comp));
+		assertEquals(emptyList, FindKLargest.findKLargestHeap(emptyList, 0, comp));
 	}
 
 	@Test
-	void K0listHeap() 
+	void emptyListSortComp()
 	{
-		assertEquals(emptyList,FindKLargest.findKLargestHeap(list, 0));
+		assertEquals(emptyList, FindKLargest.findKLargestSort(emptyList, 0, comp));
 	}
 
 	@Test
-	void K0listHeapComp() 
+	void K0listHeap()
 	{
-		assertEquals(emptyList,FindKLargest.findKLargestHeap(list, 0,comp));
+		assertEquals(emptyList, FindKLargest.findKLargestHeap(list, 0));
 	}
 
 	@Test
-	void K0listSort() 
+	void K0listHeapComp()
 	{
-		assertEquals(emptyList,FindKLargest.findKLargestSort(list, 0));
+		assertEquals(emptyList, FindKLargest.findKLargestHeap(list, 0, comp));
 	}
 
 	@Test
-	void K0SortComp() 
+	void K0listSort()
 	{
-		assertEquals(emptyList,FindKLargest.findKLargestSort(list, 0,comp));
+		assertEquals(emptyList, FindKLargest.findKLargestSort(list, 0));
 	}
 
 	@Test
-	void oneListHeap() 
+	void K0SortComp()
 	{
-		assertEquals(oneList,FindKLargest.findKLargestHeap(oneList, 1));
+		assertEquals(emptyList, FindKLargest.findKLargestSort(list, 0, comp));
 	}
 
 	@Test
-	void oneListHeapComp() 
+	void oneListHeap()
 	{
-		assertEquals(oneList,FindKLargest.findKLargestHeap(oneList, 1,comp));
+		assertEquals(oneList, FindKLargest.findKLargestHeap(oneList, 1));
 	}
 
 	@Test
-	void oneListSort() 
+	void oneListHeapComp()
 	{
-		assertEquals(oneList,FindKLargest.findKLargestSort(oneList, 1));
+		assertEquals(oneList, FindKLargest.findKLargestHeap(oneList, 1, comp));
 	}
 
 	@Test
-	void oneListSortComp() 
+	void oneListSort()
 	{
-		assertEquals(oneList,FindKLargest.findKLargestSort(oneList, 1,comp));
+		assertEquals(oneList, FindKLargest.findKLargestSort(oneList, 1));
 	}
 
 	@Test
-	void listHeap() 
+	void oneListSortComp()
 	{
-		assertEquals(correctList,FindKLargest.findKLargestHeap(list, 4));
+		assertEquals(oneList, FindKLargest.findKLargestSort(oneList, 1, comp));
 	}
 
 	@Test
-	void listHeapComp() 
+	void listHeap()
 	{
-		assertEquals(correctListComp,FindKLargest.findKLargestHeap(list, 4,comp)); 
-	} 
-
-	
-	@Test
-	void listSort() 
-	{
-		assertEquals(correctList,FindKLargest.findKLargestSort(list, 4));
+		assertEquals(correctList, FindKLargest.findKLargestHeap(list, 4));
 	}
 
 	@Test
-	void listSortComp() 
+	void listHeapComp()
 	{
-		assertEquals(correctListComp,FindKLargest.findKLargestSort(list, 4,comp)); 
+		assertEquals(correctListComp, FindKLargest.findKLargestHeap(list, 4, comp));
 	}
 
 	@Test
-	void duplicateListHeap() 
+	void listSort()
 	{
-		assertEquals(correctDuplicateList,FindKLargest.findKLargestHeap(duplicateList, 4));
+		assertEquals(correctList, FindKLargest.findKLargestSort(list, 4));
 	}
 
 	@Test
-	void duplicateListHeapComp() 
+	void listSortComp()
 	{
-		assertEquals(correctDuplicateListComp,FindKLargest.findKLargestHeap(duplicateList, 4,comp)); 
-	}
-
-	
-	@Test
-	void duplicateListSort() 
-	{
-		assertEquals(correctDuplicateList,FindKLargest.findKLargestSort(duplicateList, 4));
+		assertEquals(correctListComp, FindKLargest.findKLargestSort(list, 4, comp));
 	}
 
 	@Test
-	void duplicateListSortComp() 
-	{	
-		assertEquals(correctDuplicateListComp,FindKLargest.findKLargestSort(duplicateList, 4,comp)); 
+	void duplicateListHeap()
+	{
+		assertEquals(correctDuplicateList, FindKLargest.findKLargestHeap(duplicateList, 4));
+	}
+
+	@Test
+	void duplicateListHeapComp()
+	{
+		assertEquals(correctDuplicateListComp, FindKLargest.findKLargestHeap(duplicateList, 4, comp));
+	}
+
+	@Test
+	void duplicateListSort()
+	{
+		assertEquals(correctDuplicateList, FindKLargest.findKLargestSort(duplicateList, 4));
+	}
+
+	@Test
+	void duplicateListSortComp()
+	{
+		assertEquals(correctDuplicateListComp, FindKLargest.findKLargestSort(duplicateList, 4, comp));
 	}
 }
-
