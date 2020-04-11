@@ -1,8 +1,16 @@
 Here is how I would solve this:
 
+Bigger Picture overview
+- We can use HashMap<String,ArrayList<ArrayList<String>>>
+    HashMap, ArrayList
+- We can use HashMap<String,ArrayList<Queue<String>>
+    HashMap, ArrayList, LinkedList implements Queue (abstract data structure)
+
 Using the GrammarReader:
 
 I - create a HashMap<String,ArrayList<ArrayList<String>>>
+
+
 
 1- Read each line checking for '{'
     a - if found proceed to step 2
@@ -57,6 +65,11 @@ My idea also never looks beyond two characters of a token, and only splits items
 It doesn't seem lengthy, with only two code classes and few methods. Most of the work seems to be in parsing the file.
 
 Considerations:
+- The ArrayList within ArrayList functions like a queue, but the queue population occurs in GrammarReader and the removal in RandomPhrase
+    We can implement ArrayList , or use LinkedList as a queue (automatic). 
+        This would result in HashMap<String,ArrayList<Queue<String>>> 
+    I don't know if using LinkedList as a queue is better than using an ArrayList (but it is more memory)
+
 - I don't think we should use primitive arrays, but it is a possibility
 - This only uses two data structures Maybe stacks (for file parsing) and LinkedLists for (storing) could be used, but I can't see them as more efficient
 - This is memory heavy. This is a HashMap with ArrayLists containing ArrayLists containing Strings mapped to a String.

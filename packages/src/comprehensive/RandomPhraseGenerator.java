@@ -1,8 +1,12 @@
 package comprehensive;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
- * Takes user input to generate requisite number of random phrases.
- * Calls RandomPhrase which calls GrammarReader.
+ * Takes user input to generate requisite number of random phrases. Calls
+ * RandomPhrase which calls GrammarReader.
  */
 public class RandomPhraseGenerator
 {
@@ -16,5 +20,8 @@ public class RandomPhraseGenerator
         // string.replace(5, 6, "do be like that");
 
         // System.out.println(string.toString());
+
+        //Queue<String> queue = new LinkedList<String>();
+        
     }
 }
