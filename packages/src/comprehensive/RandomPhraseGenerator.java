@@ -1,17 +1,13 @@
 package comprehensive;
 
+/**
+ * Takes user input to generate requisite number of random phrases.
+ * Calls RandomPhrase which calls GrammarReader.
+ */
 public class RandomPhraseGenerator
 {
-
-    public RandomPhraseGenerator ()
-    {
-        // TODO Auto-generated constructor stub
-    }
-
     public static void main (String[] args)
     {
-        // TODO Auto-generated method stub
-
+        RandomPhrase generator = new RandomPhrase(Integer.parseInt(args[0]));
     }
-
 }

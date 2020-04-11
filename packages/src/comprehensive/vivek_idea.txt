@@ -1,0 +1,62 @@
+Here is how I would solve this:
+
+Using the GrammarReader:
+
+I - create a HashMap<String,ArrayList<ArrayList<String>>>
+
+1- Read each line checking for '{'
+    a - if found proceed to step 2
+2 - Read next line, store as nonterminal
+3 - Read next line, split into tokens, store tokens as an ArrayList, add ArrayList to ArrayList
+    a - if next line is '}' continue to step 4
+4 - Add to HashMap the nonterminal (key) and rules containing tokens (value)
+5- repeat from step 1 until end of file is reached
+6- Output the data structure
+
+Notes:
+For a given nonterminal, all rules are stored in an array, with each rule/array containing another array that holds the rules' tokens
+This is the value
+    - They are tokens rather than words to perserve things like ,.;:'" etc
+    -Due the strict nature of the grammar files, there are no beginning and end spaces, and only one space between terminals/nonterminals, 
+    so tokenization works.
+    - Also no spaces withing terminals and non-terminals
+
+    - The justification is given later
+
+
+Using the RandomPhrase:
+Construct RandomPhrase with the return for GrammarReader, storing it as a private member
+I  - using a method that takes in a nonterminal as a parameter (we'll call it print(nonterminal))
+
+print(<start>) (Driver method)
+    1 - get the <nonterminal> value
+    2 - pick random rule from 0 to ArrayList.size()
+    3 - Print each token in the chosen rule with a + ' ', checking if the first character of the token is '<' 
+        a - if found proceed to step 4
+    4 - print(<nonterminal>), start from step 1
+        This makes this recursive
+
+Notes:
+
+Using the RandomPhraseGenerator:
+
+1 - Make sure it is command line workable
+2 - Within the main method, call RandomPhrase(new GrammarReader(filename))
+3 - call RandomPhrase.print(<start>) however many times asked
+
+
+My idea leverages the strictness of the grammar files heavily and leverages the constant time access of HashMaps and Arrays.
+My idea also never looks beyond the first character of a token, and only splits items into tokens. So hopefully it is time efficient
+It doesn't seem lengthy, with only two code classes and few methods. Most of the work seems to be in parsing the file.
+
+Considerations:
+- I don't think we should use primitive arrays, but it is a possibility
+- This only uses two data structures Maybe stacks (for file parsing) and LinkedLists for (storing) could be used, but I can't see them as more efficient
+- This is memory heavy. This is a HashMap with ArrayLists containing ArrayLists containing Strings mapped to a String.
+    I don't know if this is problematic for large problem sizes
+
+
+Other Discussion ideas:
+
+What if we stored index ranges for nonterminals, I don't know if it would be efficient, but maybe, as you could potentially minimize
+the stringbuilding required. Would result in very different idea from what I had. 
