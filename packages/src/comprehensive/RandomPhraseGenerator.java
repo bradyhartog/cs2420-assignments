@@ -1,5 +1,6 @@
 package comprehensive;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -12,16 +13,16 @@ public class RandomPhraseGenerator
 {
     public static void main (String[] args)
     {
-        //RandomPhrase generator = new RandomPhrase(Integer.parseInt(args[0]));
+        File file = new File(args[0]);
 
-        //String builder can extend a string, thank goodness
-        // StringBuilder string = new StringBuilder("this is a word");
+        int phrases = Integer.parseInt(args[1]);
 
-        // string.replace(5, 6, "do be like that");
+        GrammarReader grammar = new GrammarReader(file);
+        RandomPhrase generator = new RandomPhrase(grammar.getGrammar());
 
-        // System.out.println(string.toString());
-
-        //Queue<String> queue = new LinkedList<String>();
-        
+        for (int i = 0; i < phrases; i++)
+        {
+            System.out.println(generator.print());
+        }
     }
 }

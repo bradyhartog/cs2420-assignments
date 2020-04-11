@@ -29,13 +29,28 @@ public class RandomPhrase
     private String print(String nonTerminal)
     {
     	Random rng = new Random();
-    	
+    	StringBuilder string = new StringBuilder();
     	ArrayList<String[]> rules = grammar.get(nonTerminal);
     	String[] rule = rules.get(rng.nextInt(rules.size()));
     	
     	for (int i = 0; i < rule.length; i++)
     	{
-    		//
-    	}
-    }
+            String token = rule[i];
+            int leftBracketIndex = token.indexOf("<");
+            if (leftBracketIndex != -1)
+            {
+                int rightBracketIndex = token.indexOf(">");
+                
+                StringBuilder newToken = new StringBuilder(token);
+                newToken.replace(leftBracketIndex, rightBracketIndex+1, print(token.substring(leftBracketIndex, rightBracketIndex+1)));
+
+                token = newToken.toString();
+            }
+
+            string.append(token + " ");      
+        }
+
+        string.deleteCharAt(string.length()-1);
+        return string.toString();   
+     }
 }

@@ -46,7 +46,9 @@ print(<start>) (Driver method)
     3 - Print each token in the chosen rule with a + ' ', checking if token has '<' 
         a - if found proceed to step 4
     4 - Record index of '<' and '>', and string.replace(print(<nonterminal>)) at the proper indexes
-        a-This accounts for things like <nonterminal>. or terminal<nonterminal>
+        a-This accounts for things like <nonterminal>. or terminal<nonterminal>  house<nonterminal> (houseplane, houseboat)
+
+            
         b- this is also recursive
     
     
