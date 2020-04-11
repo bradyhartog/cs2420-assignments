@@ -17,6 +17,10 @@ public class RandomPhraseGenerator
 
         int phrases = Integer.parseInt(args[1]);
 
+        // File file = new File("C:\\Users\\viviv\\Documents\\GitHub\\cs2420-assignments\\packages\\src\\comprehensive\\assignment_extension_request.g");
+
+        // int phrases = 1;
+
         GrammarReader grammar = new GrammarReader(file);
         RandomPhrase generator = new RandomPhrase(grammar.getGrammar());
 
