@@ -31,10 +31,17 @@ I  - using a method that takes in a nonterminal as a parameter (we'll call it pr
 print(<start>) (Driver method)
     1 - get the <nonterminal> value
     2 - pick random rule from 0 to ArrayList.size()
-    3 - Print each token in the chosen rule with a + ' ', checking if the first character of the token is '<' 
+    DO NOT USE 3 - Print each token in the chosen rule with a + ' ', checking if the first character of the token is '<' 
         a - if found proceed to step 4
-    4 - print(<nonterminal>), start from step 1
+    DO NOTE USE 4 - print(<nonterminal>), start from step 1
         This makes this recursive
+    3 - Print each token in the chosen rule with a + ' ', checking if token has '<' 
+        a - if found proceed to step 4
+    4 - Record index of '<' and '>', and string.replace(print(<nonterminal>)) at the proper indexes
+        a-This accounts for things like <nonterminal>. or terminal<nonterminal>
+        b- this is also recursive
+    
+    
 
 Notes:
 
@@ -46,7 +53,7 @@ Using the RandomPhraseGenerator:
 
 
 My idea leverages the strictness of the grammar files heavily and leverages the constant time access of HashMaps and Arrays.
-My idea also never looks beyond the first character of a token, and only splits items into tokens. So hopefully it is time efficient
+My idea also never looks beyond two characters of a token, and only splits items into tokens. So hopefully it is time efficient
 It doesn't seem lengthy, with only two code classes and few methods. Most of the work seems to be in parsing the file.
 
 Considerations:
