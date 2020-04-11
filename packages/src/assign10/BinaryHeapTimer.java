@@ -83,7 +83,7 @@ public class BinaryHeapTimer
 			//double averageTime = ((midpointTime - startTime) - (stopTime - midpointTime)) / (double)timesToLoop;
 
 			//Uncomment if timing add (worstcase)
-			//double averageTime = ((midpointTime - startTime) - (stopTime - midpointTime)) / (double)probSize;
+			double averageTime = ((midpointTime - startTime) - (stopTime - midpointTime)) / (double)probSize;
 			System.out.println(probSize + "  " + averageTime);
 		}
 	}
