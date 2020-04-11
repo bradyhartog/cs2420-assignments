@@ -12,11 +12,17 @@ import java.util.Scanner;
  */
 public class GrammarReader 
 {
-    HashMap<String,ArrayList<ArrayList<String>>> grammar;
+    private HashMap<String, ArrayList<String[]>> grammar;
 
-    public GrammarReader()
+    public GrammarReader(File file)
     {
-        grammar = new HashMap<String,ArrayList<ArrayList<String>>>();
+        this.grammar = new HashMap<String, ArrayList<String[]>>();
+    	this.grammar = readFromFile(file);
+    }
+    
+    public HashMap<String, ArrayList<String[]>> getGrammar()
+    {
+    	return this.grammar;
     }
 
     /**
@@ -26,45 +32,40 @@ public class GrammarReader
 	 * @param file - the File to be read
 	 * @return a List of the Strings in the input file
 	 */
-	private List<String> readFromFile(File file) 
+	private HashMap<String, ArrayList<String[]>> readFromFile(File file) 
 	{
-		ArrayList<String> words = new ArrayList<String>();
-
 		try 
 		{
 			Scanner fileInput = new Scanner(file);
 
-            boolean isClosed = false;
-
-
 			while (fileInput.hasNext()) 
 			{
 				String s = fileInput.nextLine();
+				
 				if (s.equals("{")) 
 				{
-                    String key = fileInput.nextLine();
-                    while(s != "}")
+					String nonTerminal = fileInput.nextLine();
+					ArrayList<String[]> productions = new ArrayList<>();
+					
+					s = fileInput.nextLine();
+                    
+                    while (!s.equals("}"))
                     {
+                        productions.add(s.split(" "));
                         s = fileInput.nextLine();
-                        s.split(" ");
                     }
+                    
+                    this.grammar.put(nonTerminal, productions);
                 }
             }
-            
 			
     		fileInput.close();
-        } 
-        
-        private void rule (String[] rule)
-        {
-            
-        }
-		// catch(FileNotFoundException e) 
-		// {
-		// 	System.err.println("File " + file + " cannot be found.");
-		// }
+		}
+		catch(FileNotFoundException e) 
+		{
+			// Blank by assumption of correct input files.
+		}
 
-		return words;
+		return grammar;
 	}
-
 }
