@@ -1,56 +1,79 @@
 package comprehensive;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
 /**
- * Uses the output from GrammarReader to generate Random Phrases
+ * Uses a grammar file to generate random rhrases
  */
 public class RandomPhrase
 {
-    private HashMap<String, ArrayList<String[]>> grammar; //Just checking to make sure we can inception this, feel free to delete
-        //O(1) nonterminal access
-            //O(1) rule access (after nonterminal acccess)
-                //O(length of the rule)?
-        //My optimistic prediction is a high constant time (after grammar parsing)
-            //This means the big O would be determined by the cost of the parsing
+    /**The HashMap form of the grammar */
+    private HashMap<String, ArrayList<String[]>> grammar; 
 
-    public RandomPhrase (HashMap<String, ArrayList<String[]>> grammar)
+    /**
+     * Constructs the RandomPhrase by setting the grammar to the output of GrammarReader from a file
+     * @param file
+     */
+    public RandomPhrase (File file)
     {
-        this.grammar = grammar;
+        GrammarReader grammar = new GrammarReader(file);
+        this.grammar = grammar.getGrammar();
     }
     
+    /**
+     * Driver method to print a random phrase
+     */
     public String print()
     {
     	return print("<start>");
     }
     
+    /**
+     * Helper method to print a random phrase starting from a nonTerminal
+     */
     private String print(String nonTerminal)
     {
-    	Random rng = new Random();
-    	StringBuilder string = new StringBuilder();
-    	ArrayList<String[]> rules = grammar.get(nonTerminal);
-    	String[] rule = rules.get(rng.nextInt(rules.size()));
-    	
+    	Random rng = new Random(); //Random number generator
+    	StringBuilder string = new StringBuilder(); //Constructs the phrase
+    	ArrayList<String[]> rules = grammar.get(nonTerminal); //Gets all of the production rules associated with a nonterminal
+    	String[] rule = rules.get(rng.nextInt(rules.size())); //Stores the tokenized form of a single production rule
+        
+        //For the number of tokens in a rule
     	for (int i = 0; i < rule.length; i++)
     	{
+            //Get the token
             String token = rule[i];
+            
+            //Search for a "<" (Indicates a nonterminal)
             int leftBracketIndex = token.indexOf("<");
+
+            //If nonterminal found
             if (leftBracketIndex != -1)
             {
+                //Determine its length by getting the ">"
                 int rightBracketIndex = token.indexOf(">");
                 
+                //New StringBuilder to allow modification of the token
                 StringBuilder newToken = new StringBuilder(token);
+
+                //Replaced the nonterminal with the output phrase froma nonterminal (recursive)
                 newToken.replace(leftBracketIndex, rightBracketIndex+1, print(token.substring(leftBracketIndex, rightBracketIndex+1)));
 
+                //Reassigns the actual toke to the modifed form of the token
                 token = newToken.toString();
             }
 
+            //Since tokens are delimited by a space, the phrase added the token with a space
             string.append(token + " ");      
         }
 
+        //Removes the last space to as there is never a space at the end of a phrase
         string.deleteCharAt(string.length()-1);
+        
+        //Returns the phrase
         return string.toString();   
      }
 }
