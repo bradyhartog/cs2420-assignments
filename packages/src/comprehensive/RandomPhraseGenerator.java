@@ -28,7 +28,7 @@ public class RandomPhraseGenerator
         // File file = new File(vivekPath + "mathematical_expression.g");
         // //File file = new File(bradyPath + "mathematical_expression.g");
 
-        //int phrases = 10;
+        // int phrases = 10;
 
         //Makes the RandomPhraseGenerator from the user's file
         RandomPhrase generator = new RandomPhrase(file);
