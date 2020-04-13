@@ -8,11 +8,12 @@ public class GrammarGenerator
     public static void rulesPerNonterminal(int probSizeLower, int probSizeUpper, int incr)
     {
         int name = 0;
+        String vivekPath = "C:\\Users\\viviv\\Documents\\GitHub\\cs2420-assignments\\packages\\src\\comprehensive\\N_rules\\";
         for (int probSize = probSizeLower; probSize <= probSizeUpper; probSize += incr)
         {
             try 
             {
-                FileWriter writer = new FileWriter("/N_rules/" + name + ".txt", true);
+                FileWriter writer = new FileWriter(vivekPath + name + ".txt", true);
                     
                 writer.write("{");
                 writer.write("<start>");
