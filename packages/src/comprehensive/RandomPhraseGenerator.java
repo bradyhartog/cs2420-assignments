@@ -15,20 +15,20 @@ public class RandomPhraseGenerator
      */
     public static void main (String[] args)
     {
-        //User supplied grammar file
-        File file = new File(args[0]);
+        // //User supplied grammar file
+        // File file = new File(args[0]);
 
-        //User supplied requisited phrases
-        int phrases = Integer.parseInt(args[1]);
+        // //User supplied requisited phrases
+        // int phrases = Integer.parseInt(args[1]);
 
         //This is for testing it in the main method itself (DELETE BEFORE FINAL SUBMISSION)
 
-        // String vivekPath = "C:\\Users\\viviv\\Documents\\GitHub\\cs2420-assignments\\packages\\src\\comprehensive\\";
-        // String bradyPath = ""; //Add what you need
-        // File file = new File(vivekPath + "mathematical_expression.g");
-        // //File file = new File(bradyPath + "mathematical_expression.g");
+        String vivekPath = "C:\\Users\\viviv\\Documents\\GitHub\\cs2420-assignments\\packages\\src\\comprehensive\\";
+        String bradyPath = ""; //Add what you need
+        File file = new File(vivekPath + "abc.g");
+        //File file = new File(bradyPath + "mathematical_expression.g");
 
-        // int phrases = 10;
+        int phrases = 1;
 
         //Makes the RandomPhraseGenerator from the user's file
         RandomPhrase generator = new RandomPhrase(file);

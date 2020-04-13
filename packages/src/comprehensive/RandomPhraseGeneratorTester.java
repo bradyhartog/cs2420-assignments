@@ -42,9 +42,9 @@ class RandomPhraseGeneratorTester
     	
     	HashMap<String, ArrayList<String[]>> grammar = g.getGrammar();
     	
-        RandomPhrase generator = new RandomPhrase(grammar);
+        //RandomPhrase generator = new RandomPhrase(grammar);
         
-        String phrase = generator.print();
+        //String phrase = generator.print();
         
     }
 

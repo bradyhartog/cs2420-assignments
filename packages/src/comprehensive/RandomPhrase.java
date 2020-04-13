@@ -47,6 +47,9 @@ public class RandomPhrase
             //Get the token
             String token = rule[i];
             
+            //FIX: Iterate through each character in the token
+                //for abc.g, the will be multiple nonterminals in a token, but the loop iterates 1 per token
+            
             //Search for a "<" (Indicates a nonterminal)
             int leftBracketIndex = token.indexOf("<");
 
