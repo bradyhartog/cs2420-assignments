@@ -9,16 +9,9 @@ package comprehensive;
  */
 public class RandomPhraseGeneratorTimer
 {
-
-    public RandomPhraseGeneratorTimer ()
-    {
-        // TODO Auto-generated constructor stub
-    }
-
     public static void main (String[] args)
     {
-        // TODO Auto-generated method stub
-
+       GrammarGenerator.rulesPerNonterminal(1, 20, 1);
     }
 
 }
