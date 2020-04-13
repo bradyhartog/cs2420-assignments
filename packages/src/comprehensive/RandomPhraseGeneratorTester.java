@@ -16,6 +16,17 @@ import org.junit.jupiter.api.Test;
 class RandomPhraseGeneratorTester
 {
 
+    //Possible tests
+        //Multiple start rules
+        //Multiple nonterminals w/ no space
+        //Start has no nonterminals
+        //All nonterminals have terminals only
+        //Inaccessible nonterminals
+        //Very cyclic grammar
+        //TerminalNonterminal
+        //Only a start
+        //Only two starts
+    
     @BeforeEach
     void setUp () throws Exception
     {
