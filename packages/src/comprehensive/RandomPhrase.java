@@ -19,8 +19,7 @@ public class RandomPhrase
      */
     public RandomPhrase (File file)
     {
-        GrammarReader grammar = new GrammarReader(file);
-        this.grammar = grammar.getGrammar();
+        this.grammar = new GrammarReader(file).getGrammar(); //This is a neat trick
     }
     
     /**
