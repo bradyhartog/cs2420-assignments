@@ -19,7 +19,7 @@ public class RandomPhrase
      */
     public RandomPhrase (File file)
     {
-        this.grammar = new GrammarReader(file).getGrammar(); //This is a neat trick
+        this.grammar = new GrammarReader(file).getGrammar();
     }
     
     /**
@@ -44,35 +44,25 @@ public class RandomPhrase
     	for (int i = 0; i < rule.length; i++)
     	{
             //Get the token
-            String token = rule[i];
-            
-            //FIX: Iterate through each character in the token
-                //for abc.g, the will be multiple nonterminals in a token, but the loop iterates 1 per token
-                //token.indexOf(str, fromIndex) <- Using this, we don't actually have to iterate ourselves
+            StringBuilder token = new StringBuilder(rule[i]);
             
             //Search for a "<" (Indicates a nonterminal)
             int leftBracketIndex = token.indexOf("<");
-
-            //token.indexOf(str, fromIndex)
-
-            //If nonterminal found
-            if (leftBracketIndex != -1)
-            {
+            
+            while (leftBracketIndex != -1)
+            {     
                 //Determine its length by getting the ">"
                 int rightBracketIndex = token.indexOf(">");
-                
-                //New StringBuilder to allow modification of the token
-                StringBuilder newToken = new StringBuilder(token);
 
                 //Replaced the nonterminal with the output phrase froma nonterminal (recursive)
-                newToken.replace(leftBracketIndex, rightBracketIndex+1, print(token.substring(leftBracketIndex, rightBracketIndex+1)));
+                token.replace(leftBracketIndex, rightBracketIndex+1, print(token.substring(leftBracketIndex, rightBracketIndex+1)));
 
-                //Reassigns the actual toke to the modifed form of the token
-                token = newToken.toString();
+                //Search for a "<" (Indicates a nonterminal)
+                leftBracketIndex = token.indexOf("<");
             }
 
             //Since tokens are delimited by a space, the phrase added the token with a space
-            string.append(token + " ");      
+            string.append(token.toString() + " ");      
         }
 
         //Removes the last space to as there is never a space at the end of a phrase

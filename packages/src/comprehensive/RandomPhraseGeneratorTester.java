@@ -18,14 +18,16 @@ class RandomPhraseGeneratorTester
 
     //Possible tests
         //Multiple start rules
-        //Multiple nonterminals w/ no space
-        //Start has no nonterminals
-        //All nonterminals have terminals only
-        //Inaccessible nonterminals
-        //Very cyclic grammar
-        //TerminalNonterminal
-        //Only a start
-        //Only two starts
+        //Multiple nonterminals w/ no space - abc.g
+        //Start has no nonterminals - hello world.g
+        //All nonterminals have terminals only - super_simple.g
+        //Inaccessible nonterminals - file with unused non terminals
+        //Very cyclic grammar - Test overflow
+        //TerminalNonterminal - Self explanatory
+        //Only a start - hello world.g
+        //Only two starts - Two starts and nothing else
+
+    
     
     @BeforeEach
     void setUp () throws Exception
