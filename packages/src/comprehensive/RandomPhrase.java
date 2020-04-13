@@ -49,9 +49,12 @@ public class RandomPhrase
             
             //FIX: Iterate through each character in the token
                 //for abc.g, the will be multiple nonterminals in a token, but the loop iterates 1 per token
+                //token.indexOf(str, fromIndex) <- Using this, we don't actually have to iterate ourselves
             
             //Search for a "<" (Indicates a nonterminal)
             int leftBracketIndex = token.indexOf("<");
+
+            //token.indexOf(str, fromIndex)
 
             //If nonterminal found
             if (leftBracketIndex != -1)
