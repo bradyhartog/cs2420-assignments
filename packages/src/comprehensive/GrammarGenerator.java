@@ -7,26 +7,25 @@ public class GrammarGenerator
 {
     public static void rulesPerNonterminal(int probSizeLower, int probSizeUpper, int incr)
     {
-        int name = 0;
+        int name = 1;
         String vivekPath = "C:\\Users\\viviv\\Documents\\GitHub\\cs2420-assignments\\packages\\src\\comprehensive\\N_rules\\";
         for (int probSize = probSizeLower; probSize <= probSizeUpper; probSize += incr)
         {
             try 
             {
-                FileWriter writer = new FileWriter(vivekPath + name + ".txt", true);
-                    
-                writer.write("{");
-                writer.write("<start>");
-                writer.write("<nonterminal>");
-                writer.write("}");
-                writer.write("{");
-                writer.write("<nonterminal>");
+                FileWriter writer = new FileWriter(vivekPath + name + ".txt", false);
+                writer.write("{\n");
+                writer.write("<start>\n");
+                writer.write("<nonterminal>\n");
+                writer.write("}\n");
+                writer.write("{\n");
+                writer.write("<nonterminal>\n");
                
-                for (int i = 0; i< probSize; i++)
+                for (int i = 1; i<= probSize; i++)
                 {
-                    writer.write("lorem ipsum dolor");
+                    writer.write("lorem ipsum dolor\n");
                 }
-                writer.write("}");
+                writer.write("}\n");
                 writer.close();
             } 
         
