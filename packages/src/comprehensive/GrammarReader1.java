@@ -9,18 +9,18 @@ import java.util.Scanner;
 /**
  * Parses through a grammar file
  */
-public class GrammarReader {
-	/** The HashMap form of the grammar */
-	private HashMap<String, ArrayList<String>> grammar;
+public class GrammarReader1 
+{
+	/**The HashMap form of the grammar */
+    private HashMap<String, ArrayList<String[]>> grammar;
 
 	/**
 	 * Constructs the HashMap form of the grammar
-	 * 
 	 * @param file
 	 */
-	public GrammarReader(File file)
+    public GrammarReader1(File file)
     {
-        this.grammar = new HashMap<String, ArrayList<String>>();
+        this.grammar = new HashMap<String, ArrayList<String[]>>();
     	this.grammar = readFromFile(file);
     }
 	
@@ -28,7 +28,7 @@ public class GrammarReader {
 	 * Gets the HashMap form of the grammar
 	 * @return grammar (HashMap)
 	 */
-    public HashMap<String, ArrayList<String>> getGrammar()
+    public HashMap<String, ArrayList<String[]>> getGrammar()
     {
     	return this.grammar;
     }
@@ -40,7 +40,7 @@ public class GrammarReader {
 	 * @param file - The file to be read
 	 * @return HashMap form of the grammar
 	 */
-	private HashMap<String, ArrayList<String>> readFromFile(File file)
+	private HashMap<String, ArrayList<String[]>> readFromFile(File file)
 	{
 		try 
 		{
@@ -59,7 +59,7 @@ public class GrammarReader {
 					String nonTerminal = fileInput.nextLine();
 
 					//Prepares to get the production rules
-					ArrayList<String> productions = new ArrayList<>();
+					ArrayList<String[]> productions = new ArrayList<>();
 					
 					//Gets the first rule
 					s = fileInput.nextLine();
@@ -68,7 +68,7 @@ public class GrammarReader {
                     while (!s.equals("}"))
                     {
 						//Split each production rule into space-delimited tokens
-						productions.add(s);
+						productions.add(s.split(" "));
 						
 						//Gets the next line
                         s = fileInput.nextLine();

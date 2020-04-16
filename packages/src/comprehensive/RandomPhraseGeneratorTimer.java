@@ -14,8 +14,8 @@ public class RandomPhraseGeneratorTimer
         int probSizeLower = 10000;
         int probSizeUpper = 200000;
         int incr = 10000;
-        GrammarGenerator.rulesPerNonterminal(probSizeLower, probSizeUpper, incr);
-
+        //GrammarGenerator.rulesPerNonterminal(probSizeLower, probSizeUpper, incr);
+        GrammarGenerator.nonterminalsPerRule(probSizeLower, probSizeUpper, incr);
         //int timesToLoop = 10;
         
         int name = 1;
@@ -26,7 +26,7 @@ public class RandomPhraseGeneratorTimer
             // This allows this thread to stabilize.
             String[] args1 = new String[] {vivekPath + name + ".txt", "1"};
 
-            long stopTime, midpointTime, startTime = System.nanoTime();
+            long stopTime,startTime = System.nanoTime();
 
             while (System.nanoTime() - startTime < 1000000000)
             { // empty block
