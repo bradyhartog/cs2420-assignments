@@ -9,7 +9,7 @@ import java.util.Scanner;
 /**
  * Parses through a grammar file
  */
-public class GrammarReader {
+public class GrammarReaderSubmit {
 	/** The HashMap form of the grammar */
 	private HashMap<String, ArrayList<String>> grammar;
 
@@ -18,7 +18,7 @@ public class GrammarReader {
 	 * 
 	 * @param file
 	 */
-	public GrammarReader(File file)
+	public GrammarReaderSubmit(File file)
     {
         this.grammar = new HashMap<String, ArrayList<String>>();
     	this.grammar = readFromFile(file);
