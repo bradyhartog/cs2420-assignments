@@ -12,7 +12,13 @@ import java.util.Scanner;
 public class GrammarReader2 {
 	
 	Graph grammar;
+	HashMap<String,ArrayList<BinaryTree<String>>>
+
+	HashMap<String,Integer>
+
+	ArrayList<BinaryTree<String>>
 	
+
 	/**
 	 * Constructs the HashMap form of the grammar
 	 * 
