@@ -69,26 +69,18 @@ public class GrammarReader2 {
 					//Checks to see if this set of rules ends
                     while (!s.equals("}"))
                     {
-						//Split each production rule into space-delimited tokens
-						//productions.add(s.split(" "));
-						//String[] rule = s.split(" ");
-                    	//String rule = s;
+						grammar.addEdge(nonTerminal, s);
+                    	
+                    	String[] rule = s.split(" ");
 						
-//						for (String token : rule)
-//						{
-//							grammar.addEdge(nonTerminal, token);
-//						}
-                    	
-                    	grammar.addEdge(nonTerminal, s);
-                    	
-                    	//
+						for (String token : rule)
+						{
+							grammar.addEdge(s, token);
+						}
 						
 						//Gets the next line
                         s = fileInput.nextLine();
                     }
-					
-					//Adds the nonterminal with its rules into the HashMap form of the grammar
-                    //this.grammar.put(nonTerminal, productions);
                 }
 			}
 			
