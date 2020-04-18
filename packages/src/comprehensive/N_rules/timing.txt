@@ -1,37 +1,19 @@
- 4.19732E7
-lorem ipsum dolor
+20000 4.19732E7
 30000  2.34811E7
-lorem ipsum dolor
 40000  2.24341E7
-lorem ipsum dolor
 50000  3.88E7
-lorem ipsum dolor
 60000  4.95376E7
-lorem ipsum dolor
 70000  4.91907E7
-lorem ipsum dolor
 80000  6.34837E7
-lorem ipsum dolor
 90000  4.6986E7
-lorem ipsum dolor
 100000  5.56143E7
-lorem ipsum dolor
 110000  6.72416E7
-lorem ipsum dolor
 120000  7.95329E7
-lorem ipsum dolor
 130000  1.351568E8
-lorem ipsum dolor
 140000  1.019871E8
-lorem ipsum dolor
 150000  8.66253E7
-lorem ipsum dolor
 160000  1.270659E8
-lorem ipsum dolor
 170000  1.000213E8
-lorem ipsum dolor
 180000  1.34864E8
-lorem ipsum dolor
 190000  1.198278E8
-lorem ipsum dolor
 200000  1.54482E8
