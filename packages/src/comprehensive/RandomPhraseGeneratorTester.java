@@ -53,7 +53,7 @@ class RandomPhraseGeneratorTester
     	
     	GrammarReader g = new GrammarReader(file);
     	
-    	HashMap<String, ArrayList<String[]>> grammar = g.getGrammar();
+    	HashMap<String, ArrayList<String>> grammar = g.getGrammar();
     	
         //RandomPhrase generator = new RandomPhrase(grammar);
         
