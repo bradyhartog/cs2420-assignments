@@ -12,12 +12,6 @@ import java.util.Scanner;
 public class GrammarReader2 {
 	
 	Graph grammar;
-	HashMap<String,ArrayList<BinaryTree<String>>>
-
-	HashMap<String,Integer>
-
-	ArrayList<BinaryTree<String>>
-	
 
 	/**
 	 * Constructs the HashMap form of the grammar
@@ -64,11 +58,6 @@ public class GrammarReader2 {
 					//Gets the nonterminal (always the line after "{")
 					String nonTerminal = fileInput.nextLine();
 					
-					//grammar.addEdge(src, dst);
-
-					//Prepares to get the production rules
-					//ArrayList<String> productions = new ArrayList<>();
-					
 					//Gets the first rule
 					s = fileInput.nextLine();
 					
@@ -77,12 +66,12 @@ public class GrammarReader2 {
                     {
 						grammar.addEdge(nonTerminal, s);
                     	
-                    	String[] rule = s.split(" ");
-						
-						for (String token : rule)
-						{
-							grammar.addEdge(s, token);
-						}
+//                    	String[] rule = s.split(" ");
+//						
+//						for (String token : rule)
+//						{
+//							grammar.addEdge(s, token);
+//						}
 						
 						//Gets the next line
                         s = fileInput.nextLine();

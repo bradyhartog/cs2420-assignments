@@ -53,6 +53,11 @@ public class Graph
 
         vertex1.addEdge(vertex2);
     }
+    
+    public HashMap<String, Vertex> getVertices ()
+    {
+    	return vertices;
+    }
 
 //    /**
 //     * Breadth first search algorithm

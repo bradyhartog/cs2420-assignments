@@ -10,7 +10,7 @@ import java.util.Random;
  */
 public class RandomPhrase2 {
     /** The HashMap form of the grammar */
-    private HashMap<String, ArrayList<String>> grammar;
+    private Graph grammar;
 
     /**
      * Constructs the RandomPhrase by setting the grammar to the output of
@@ -20,7 +20,7 @@ public class RandomPhrase2 {
      */
     public RandomPhrase2(File file)
     {
-        this.grammar = new GrammarReader(file).getGrammar();
+        this.grammar = new GrammarReader2(file).getGrammar();
     }
     
     /**
@@ -37,10 +37,13 @@ public class RandomPhrase2 {
     private String print(String nonTerminal)
     {
     	Random rng = new Random(); //Random number generator
-    	//StringBuilder string = new StringBuilder(); //Constructs the phrase
-    	ArrayList<String> rules = grammar.get(nonTerminal); //Gets all of the production rules associated with a nonterminal
-    	StringBuilder rule = new StringBuilder(rules.get(rng.nextInt(rules.size()))); //Stores the tokenized form of a single production rule
-        
+    	//ArrayList<String> rules = grammar.get(nonTerminal); //Gets all of the production rules associated with a nonterminal
+    	
+    	HashMap<String, Vertex> vertices = grammar.getVertices();
+    	
+    	Vertex rules = vertices.get(nonTerminal);
+    	
+    	StringBuilder rule = new StringBuilder(rules.getEdges().get(rng.nextInt(rules.getEdges().size())).getOtherVertex().getElement());
         
         //Search for a "<" (Indicates a nonterminal)
         int leftBracketIndex = rule.indexOf("<");
@@ -58,6 +61,6 @@ public class RandomPhrase2 {
         }
 
         //Returns the phrase
-        return rule.toString();   
+        return rule.toString();
      }
 }
