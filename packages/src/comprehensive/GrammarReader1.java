@@ -6,13 +6,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import org.junit.internal.builders.NullBuilder;
+
 /**
  * Parses through a grammar file
  */
 public class GrammarReader1 
 {
 	/**The HashMap form of the grammar */
-    private HashMap<String, ArrayList<String[]>> grammar;
+    HashMap<String,ArrayList<BinaryTree>> grammar;
 
 	/**
 	 * Constructs the HashMap form of the grammar
@@ -20,7 +22,7 @@ public class GrammarReader1
 	 */
     public GrammarReader1(File file)
     {
-        this.grammar = new HashMap<String, ArrayList<String[]>>();
+        this.grammar = new HashMap<String,ArrayList<BinaryTree>>();
     	this.grammar = readFromFile(file);
     }
 	
@@ -28,7 +30,7 @@ public class GrammarReader1
 	 * Gets the HashMap form of the grammar
 	 * @return grammar (HashMap)
 	 */
-    public HashMap<String, ArrayList<String[]>> getGrammar()
+    public HashMap<String,ArrayList<BinaryTree>> getGrammar()
     {
     	return this.grammar;
     }
@@ -40,7 +42,7 @@ public class GrammarReader1
 	 * @param file - The file to be read
 	 * @return HashMap form of the grammar
 	 */
-	private HashMap<String, ArrayList<String[]>> readFromFile(File file)
+	private HashMap<String,ArrayList<BinaryTree>> readFromFile(File file)
 	{
 		try 
 		{
@@ -59,7 +61,7 @@ public class GrammarReader1
 					String nonTerminal = fileInput.nextLine();
 
 					//Prepares to get the production rules
-					ArrayList<String[]> productions = new ArrayList<>();
+					ArrayList<BinaryTree> productions = new ArrayList<>();
 					
 					//Gets the first rule
 					s = fileInput.nextLine();
@@ -67,10 +69,9 @@ public class GrammarReader1
 					//Checks to see if this set of rules ends
                     while (!s.equals("}"))
                     {
-						//Split each production rule into space-delimited tokens
-						productions.add(s.split(" "));
+						//Construct a tree for each production rule
 						
-						//Gets the next line
+						productions.add(treeBuilder(s));
                         s = fileInput.nextLine();
                     }
 					
@@ -88,5 +89,33 @@ public class GrammarReader1
 		}
 
 		return grammar;
+	}
+
+	private BinaryNode treeBuilder(String rule)
+	{
+		int leftBracketIndex = rule.indexOf("<");
+
+		BinaryNode tree;
+		if (leftBracketIndex != -1)
+		{
+			int rightBracketIndex = rule.indexOf(">");
+
+			BinaryNode leftChild = new BinaryNode(rule.substring(0,leftBracketIndex),null,null);
+
+			BinaryNode rightChild = treeBuilder(rule.substring(rightBracketIndex));
+
+			rule = rule.substring(leftBracketIndex, rightBracketIndex+1);
+
+			tree = new BinaryNode(rule,leftChild,rightChild);
+		}
+		else
+		{
+			tree = new BinaryNode(rule,null,null);
+		}
+
+
+		//Split string by first < > call method on leftover
+
+		return tree;
 	}
 }

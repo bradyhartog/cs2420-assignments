@@ -11,7 +11,7 @@ import java.util.Random;
 public class RandomPhrase1
 {
     /**The HashMap form of the grammar */
-    private HashMap<String, ArrayList<String[]>> grammar; 
+    private HashMap<String, ArrayList<BinaryTree>> grammar; 
 
     /**
      * Constructs the RandomPhrase by setting the grammar to the output of GrammarReader from a file
@@ -35,40 +35,14 @@ public class RandomPhrase1
      */
     private String print(String nonTerminal)
     {
-    	Random rng = new Random(); //Random number generator
-    	StringBuilder string = new StringBuilder(); //Constructs the phrase
-    	ArrayList<String[]> rules = grammar.get(nonTerminal); //Gets all of the production rules associated with a nonterminal
-    	String[] rule = rules.get(rng.nextInt(rules.size())); //Stores the tokenized form of a single production rule
+    	ArrayList<BinaryTree> rules = grammar.get(nonTerminal); //Gets all of the production rules associated with a nonterminal
+    	BinaryTree rule = grammar.get(nonTerminal).get(new Random().nextInt(rules.size())); //Stores the tokenized form of a single production rule
         
-        //For the number of tokens in a rule
-    	for (int i = 0; i < rule.length; i++)
-    	{
-            //Get the token
-            StringBuilder token = new StringBuilder(rule[i]);
-            
-            //Search for a "<" (Indicates a nonterminal)
-            int leftBracketIndex = token.indexOf("<");
-            
-            while (leftBracketIndex != -1)
-            {     
-                //Determine its length by getting the ">"
-                int rightBracketIndex = token.indexOf(">");
+        StringBuilder phrase = new StringBuilder();
 
-                //Replaced the nonterminal with the output phrase froma nonterminal (recursive)
-                token.replace(leftBracketIndex, rightBracketIndex+1, print(token.substring(leftBracketIndex, rightBracketIndex+1)));
+        //phrase.append(//use in order traversal);
 
-                //Search for a "<" (Indicates a nonterminal)
-                leftBracketIndex = token.indexOf("<");
-            }
-
-            //Since tokens are delimited by a space, the phrase added the token with a space
-            string.append(token.toString() + " ");      
-        }
-
-        //Removes the last space to as there is never a space at the end of a phrase
-        string.deleteCharAt(string.length()-1);
-        
         //Returns the phrase
-        return string.toString();   
-     }
+        return phrase.toString();   
+    }
 }
