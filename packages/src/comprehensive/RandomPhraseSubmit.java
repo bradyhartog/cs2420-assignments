@@ -8,7 +8,7 @@ import java.util.Random;
 /**
  * Uses a grammar file to generate random rhrases
  */
-public class RandomPhrase {
+public class RandomPhraseSubmit {
     /** The HashMap form of the grammar */
     private HashMap<String, ArrayList<String>> grammar;
 
@@ -18,7 +18,7 @@ public class RandomPhrase {
      * 
      * @param file
      */
-    public RandomPhrase(File file)
+    public RandomPhraseSubmit(File file)
     {
         this.grammar = new GrammarReader(file).getGrammar();
     }
