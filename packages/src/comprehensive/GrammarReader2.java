@@ -11,20 +11,16 @@ import java.util.Scanner;
  */
 public class GrammarReader2 {
 	
-	class GrammarNode {
-		private String data;
-		
-		private ArrayList<String> rules;
-	}
-
+	Graph grammar;
+	
 	/**
 	 * Constructs the HashMap form of the grammar
 	 * 
 	 * @param file
 	 */
-	public GrammarReader(File file)
+	public GrammarReader2(File file)
     {
-        this.grammar = new HashMap<String, ArrayList<String>>();
+        this.grammar = new Graph();
     	this.grammar = readFromFile(file);
     }
 	
@@ -32,7 +28,7 @@ public class GrammarReader2 {
 	 * Gets the HashMap form of the grammar
 	 * @return grammar (HashMap)
 	 */
-    public HashMap<String, ArrayList<String>> getGrammar()
+    public Graph getGrammar()
     {
     	return this.grammar;
     }
@@ -44,7 +40,7 @@ public class GrammarReader2 {
 	 * @param file - The file to be read
 	 * @return HashMap form of the grammar
 	 */
-	private HashMap<String, ArrayList<String>> readFromFile(File file)
+	private Graph readFromFile(File file)
 	{
 		try 
 		{
@@ -61,9 +57,11 @@ public class GrammarReader2 {
 				{
 					//Gets the nonterminal (always the line after "{")
 					String nonTerminal = fileInput.nextLine();
+					
+					//grammar.addEdge(src, dst);
 
 					//Prepares to get the production rules
-					ArrayList<String> productions = new ArrayList<>();
+					//ArrayList<String> productions = new ArrayList<>();
 					
 					//Gets the first rule
 					s = fileInput.nextLine();
@@ -72,14 +70,25 @@ public class GrammarReader2 {
                     while (!s.equals("}"))
                     {
 						//Split each production rule into space-delimited tokens
-						productions.add(s);
+						//productions.add(s.split(" "));
+						//String[] rule = s.split(" ");
+                    	//String rule = s;
+						
+//						for (String token : rule)
+//						{
+//							grammar.addEdge(nonTerminal, token);
+//						}
+                    	
+                    	grammar.addEdge(nonTerminal, s);
+                    	
+                    	//
 						
 						//Gets the next line
                         s = fileInput.nextLine();
                     }
 					
 					//Adds the nonterminal with its rules into the HashMap form of the grammar
-                    this.grammar.put(nonTerminal, productions);
+                    //this.grammar.put(nonTerminal, productions);
                 }
 			}
 			
