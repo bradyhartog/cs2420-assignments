@@ -8,6 +8,9 @@ import java.util.Random;
 public class RandomPhrase {
     private HashMap<String, Integer[]> map;
     private ArrayList<String> grammar;
+    
+    int leftBracketIndex;
+    int rightBracketIndex;
 
     Random rng = new Random();
 
@@ -23,15 +26,12 @@ public class RandomPhrase {
     }
 
     private String print(String nonTerminal) {
-        int loc = map.get(nonTerminal)[0];
-        int size = map.get(nonTerminal)[1];
+    	StringBuilder rule = new StringBuilder(grammar.get(map.get(nonTerminal)[0] + rng.nextInt(map.get(nonTerminal)[1])));
 
-        StringBuilder rule = new StringBuilder(grammar.get(loc + rng.nextInt(size)));
-
-        int leftBracketIndex = rule.indexOf("<");
+        leftBracketIndex = rule.indexOf("<");
 
         while (leftBracketIndex != -1) {
-            int rightBracketIndex = rule.indexOf(">");
+            rightBracketIndex = rule.indexOf(">");
 
             rule.replace(leftBracketIndex, rightBracketIndex + 1, print(rule.substring(leftBracketIndex, rightBracketIndex + 1)));
 

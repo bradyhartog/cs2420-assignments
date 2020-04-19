@@ -9,6 +9,9 @@ import java.util.Scanner;
 public class GrammarReader {
     HashMap<String, Integer[]> map;
     ArrayList<String> grammar;
+    
+    int loc;
+    int size;
 
     public GrammarReader(File file) {
         this.map = new HashMap<>();
@@ -28,7 +31,7 @@ public class GrammarReader {
         try {
             Scanner fileInput = new Scanner(file);
 
-            int loc = 0;
+            loc = 0;
 
             while (fileInput.hasNextLine()) {
                 String s = fileInput.nextLine();
@@ -38,7 +41,7 @@ public class GrammarReader {
 
                     s = fileInput.nextLine();
 
-                    int size = 0;
+                    size = 0;
 
                     while (!s.equals("}")) {
                         grammar.add(s);
