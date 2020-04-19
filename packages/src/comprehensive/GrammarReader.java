@@ -12,8 +12,8 @@ import java.util.Scanner;
  * @authors Vivek Vankayalapati & Brady Hartog
  * @version April 21, 2020
  */
-public class GrammarReader {
-	
+public class GrammarReader 
+{
 	/** The HashMap form of the grammar */
 	private HashMap<String, ArrayList<String>> grammar;
 

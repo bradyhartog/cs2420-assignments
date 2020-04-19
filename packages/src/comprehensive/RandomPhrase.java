@@ -11,12 +11,13 @@ import java.util.Random;
  * @authors Vivek Vankayalapati & Brady Hartog
  * @version April 21, 2020
  */
-public class RandomPhrase {
-	
+public class RandomPhrase 
+{
     /** The HashMap form of the grammar */
     private HashMap<String, ArrayList<String>> grammar;
     
-    Random rng = new Random(); //Random number generator
+    /**Random number generator */
+    Random rng = new Random();
 
     /**
      * Constructs the RandomPhrase by setting the grammar to the output of
@@ -42,12 +43,13 @@ public class RandomPhrase {
      */
     private String print(String nonTerminal)
     {
-    	ArrayList<String> rules = grammar.get(nonTerminal); //Gets all of the production rules associated with a nonterminal
-    	StringBuilder rule = new StringBuilder(rules.get(rng.nextInt(rules.size()))); //Stores the tokenized form of a single production rule
+        //Stores a single random production rule from a terminal
+    	StringBuilder rule = new StringBuilder(grammar.get(nonTerminal).get(rng.nextInt(grammar.get(nonTerminal).size())));
         
         //Search for a "<" (Indicates a nonterminal)
         int leftBracketIndex = rule.indexOf("<");
         
+        //While a nonterminal exists
         while (leftBracketIndex != -1)
         {     
             //Determine its length by getting the ">"
