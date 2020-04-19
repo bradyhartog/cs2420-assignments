@@ -5,39 +5,62 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+ * Uses a grammar file to generate random phrases
+ * 
+ * @authors Vivek Vankayalapati & Brady Hartog
+ * @version April 21, 2020
+ */
 public class RandomPhrase {
-    private HashMap<String, Integer[]> map;
-    private ArrayList<String> grammar;
+	
+    /** The HashMap form of the grammar */
+    private HashMap<String, ArrayList<String>> grammar;
     
-    int leftBracketIndex;
-    int rightBracketIndex;
+    Random rng = new Random(); //Random number generator
 
-    Random rng = new Random();
-
-    public RandomPhrase(File file) {
-        GrammarReader grammarReader = new GrammarReader(file);
-
-        this.map = grammarReader.getMap();
-        this.grammar = grammarReader.getGrammar();
+    /**
+     * Constructs the RandomPhrase by setting the grammar to the output of
+     * GrammarReader from a file
+     * 
+     * @param file
+     */
+    public RandomPhrase(File file)
+    {
+        this.grammar = new GrammarReader(file).getGrammar();
     }
-
-    public String print() {
-        return print("<start>");
+    
+    /**
+     * Driver method to print a random phrase
+     */
+    public String print()
+    {
+    	return print("<start>");
     }
+    
+    /**
+     * Helper method to print a random phrase starting from a nonTerminal
+     */
+    private String print(String nonTerminal)
+    {
+    	ArrayList<String> rules = grammar.get(nonTerminal); //Gets all of the production rules associated with a nonterminal
+    	StringBuilder rule = new StringBuilder(rules.get(rng.nextInt(rules.size()))); //Stores the tokenized form of a single production rule
+        
+        //Search for a "<" (Indicates a nonterminal)
+        int leftBracketIndex = rule.indexOf("<");
+        
+        while (leftBracketIndex != -1)
+        {     
+            //Determine its length by getting the ">"
+            int rightBracketIndex = rule.indexOf(">");
 
-    private String print(String nonTerminal) {
-    	StringBuilder rule = new StringBuilder(grammar.get(map.get(nonTerminal)[0] + rng.nextInt(map.get(nonTerminal)[1])));
+            //Replaced the nonterminal with the output phrase from a nonterminal (recursive)
+            rule.replace(leftBracketIndex, rightBracketIndex+1, print(rule.substring(leftBracketIndex, rightBracketIndex+1)));
 
-        leftBracketIndex = rule.indexOf("<");
-
-        while (leftBracketIndex != -1) {
-            rightBracketIndex = rule.indexOf(">");
-
-            rule.replace(leftBracketIndex, rightBracketIndex + 1, print(rule.substring(leftBracketIndex, rightBracketIndex + 1)));
-
+            //Search for a "<" (Indicates a nonterminal)
             leftBracketIndex = rule.indexOf("<");
         }
 
-        return rule.toString();
-    }
+        //Returns the phrase
+        return rule.toString();   
+     }
 }

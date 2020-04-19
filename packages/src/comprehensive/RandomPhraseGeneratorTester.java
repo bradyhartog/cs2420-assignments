@@ -51,7 +51,7 @@ class RandomPhraseGeneratorTester
     {
         File file = new File("C:\\Users\\viviv\\Documents\\GitHub\\cs2420-assignments\\packages\\src\\comprehensive\\super_simple.g");
     	
-    	GrammarReader g = new GrammarReader(file);
+    	GrammarReader3 g = new GrammarReader3(file);
     	
     	HashMap<String, ArrayList<String>> grammar = g.getGrammar();
     	//HashMap<String, ArrayList<String>> grammar = g.getGrammar();

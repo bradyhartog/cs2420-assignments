@@ -6,61 +6,91 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * Parses through a grammar file
+ * 
+ * @authors Vivek Vankayalapati & Brady Hartog
+ * @version April 21, 2020
+ */
 public class GrammarReader {
-    HashMap<String, Integer[]> map;
-    ArrayList<String> grammar;
-    
-    int loc;
-    int size;
+	
+	/** The HashMap form of the grammar */
+	private HashMap<String, ArrayList<String>> grammar;
 
-    public GrammarReader(File file) {
-        this.map = new HashMap<>();
-        this.grammar = new ArrayList<>();
-        this.grammar = readFromFile(file);
+	/**
+	 * Constructs the HashMap form of the grammar
+	 * 
+	 * @param file
+	 */
+	public GrammarReader(File file)
+    {
+        this.grammar = new HashMap<String, ArrayList<String>>();
+    	this.grammar = readFromFile(file);
+    }
+	
+	/**
+	 * Gets the HashMap form of the grammar
+	 * @return grammar (HashMap)
+	 */
+    public HashMap<String, ArrayList<String>> getGrammar()
+    {
+    	return this.grammar;
     }
 
-    public ArrayList<String> getGrammar() {
-        return this.grammar;
-    }
+    /**
+	 * Returns a HashMap containing nonterminals mapped to their production rules, each of which contained their
+	 * tokenized description.
+	 * 
+	 * @param file - The file to be read
+	 * @return HashMap form of the grammar
+	 */
+	private HashMap<String, ArrayList<String>> readFromFile(File file)
+	{
+		try 
+		{
+			//Scans the file
+			Scanner fileInput = new Scanner(file);
 
-    public HashMap<String, Integer[]> getMap() {
-        return this.map;
-    }
+			while (fileInput.hasNextLine()) 
+			{
+				//Get the next line
+				String s = fileInput.nextLine();
+				
+				//If nonterminal with its rules is found
+				if (s.equals("{")) 
+				{
+					//Gets the nonterminal (always the line after "{")
+					String nonTerminal = fileInput.nextLine();
 
-    private ArrayList<String> readFromFile(File file) {
-        try {
-            Scanner fileInput = new Scanner(file);
-
-            loc = 0;
-
-            while (fileInput.hasNextLine()) {
-                String s = fileInput.nextLine();
-
-                if (s.equals("{")) {
-                    String nonTerminal = fileInput.nextLine();
-
-                    s = fileInput.nextLine();
-
-                    size = 0;
-
-                    while (!s.equals("}")) {
-                        grammar.add(s);
-
-                        loc++;
-                        size++;
-
+					//Prepares to get the production rules
+					ArrayList<String> productions = new ArrayList<>();
+					
+					//Gets the first rule
+					s = fileInput.nextLine();
+					
+					//Checks to see if this set of rules ends
+                    while (!s.equals("}"))
+                    {
+						//Split each production rule into space-delimited tokens
+						productions.add(s);
+						
+						//Gets the next line
                         s = fileInput.nextLine();
                     }
-
-                    this.map.put(nonTerminal, new Integer[] {loc - size, size});
+					
+					//Adds the nonterminal with its rules into the HashMap form of the grammar
+                    this.grammar.put(nonTerminal, productions);
                 }
-            }
+			}
+			
+    		fileInput.close();
+		}
 
-            fileInput.close();
-        }
+		//The scanner forces us to the something with exception handling, so we do nothing
+		catch(FileNotFoundException e)
+		{
+		}
 
-        catch (FileNotFoundException e) {}
-
-        return grammar;
-    }
+		return grammar;
+	}
 }
